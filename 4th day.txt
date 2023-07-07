@@ -23,7 +23,11 @@ int searchInsert(vector<int>& nums, int target) {
     }
 
 
+
+
+
 //left most and right most index
+
 long long firstoccurance(vector<long long> arr, long long x){
         long long start,mid,end,result;
         start=0;
