@@ -1,0 +1,46 @@
+//Allocate minimum number of pages
+
+//Function to find minimum number of pages.
+    bool MinimumPages(int arr[],int N,int M,int mid){
+           
+           int sum=0;
+           int s=1;
+           for(int i=0;i<N;i++){
+               sum+=arr[i];
+               if(sum>mid){
+                   s++;
+                   sum=arr[i];
+               }
+           }
+        //   when student need maximum to allocate pages as compared to given student then condition will be false
+           if(s>M) return false;
+           
+            return true;
+    }
+    
+    
+    int findPages(int arr[], int N, int M) 
+    {
+        //code here
+        if(M>N) return -1;
+        
+        int sum=0;
+        for(int i=0;i<N;i++){
+            sum+=arr[i];
+        }
+        int s=arr[N-1];
+        int e=sum;
+        int result=-1;
+        int mid;
+        while(s<=e){
+            mid=e+(s-e)/2;
+            if(MinimumPages(arr,N,M,mid)==true){
+                result=mid;
+                e=mid-1;
+            }
+            else{
+                s=mid+1;
+            }
+        }
+        return result;
+    }
