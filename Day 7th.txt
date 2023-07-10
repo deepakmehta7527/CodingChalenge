@@ -1,0 +1,19 @@
+//Remove duplicate element
+
+int remove_duplicate(int a[],int n){
+        // code here
+        int point=0;
+        int pre=0;
+        int forward=0;
+        int index=0;
+        while(forward<n){
+            if(point!=a[forward]){
+                a[pre]=a[forward];
+                point=a[forward];
+                pre++;
+                index++;
+            }
+            forward++;
+        }
+        return index;
+    }
