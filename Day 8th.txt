@@ -1,0 +1,101 @@
+//Container with most water
+
+//User function template for C++
+
+long long maxArea(long long A[], int len)
+{
+    // Your code goes here
+    long long first=0;
+    long  long last=len-1;
+long long breadth,length;
+    long long sum=0;
+
+    while(first<last){
+      length=last-first;
+      
+      
+      if(A[first]>A[last]){
+         breadth=A[last];
+         last--;}
+      else{
+          breadth=A[first];
+          first++;
+      }
+      
+      if(sum<length*breadth)
+      sum=length*breadth;
+    
+        
+    }
+    return sum;
+}
+
+
+//Union of two sorted arrays
+
+ vector<int> findUnion(int arr1[], int arr2[], int n, int m)
+    {
+        //Your code here
+        //return vector with correct order of elements
+        int coin=0;
+        int first=0;
+        int second=0;
+        int index=0;
+        while(second<n){
+            if(arr1[second]!=coin){
+                arr1[first]=arr1[second];
+                coin=arr1[first];
+                first++;
+                index++;
+            }
+            second++;
+        }
+        n=index;
+        
+        index=0;
+        
+        int s=0;
+        int f=0;
+        int step=0;
+        while(s<m){
+            if(arr2[s]!=step){
+                arr2[f]=arr2[s];
+                step=arr2[f];
+                f++;
+                index++;
+            }
+            s++;
+        }
+        
+        m=index;
+        int tail=0;
+        int head=0;
+        vector<int>arr;
+        while(tail<n && head<m){
+            if(arr1[tail]==arr2[head]){
+                arr.push_back(arr1[tail]); 
+                tail++;
+                head++;
+            
+            }
+            else if(arr1[tail]<arr2[head]){
+                arr.push_back(arr1[tail]);
+                tail++;
+            }
+            else{
+                arr.push_back(arr2[head]);
+                head++;
+            }
+        }
+        
+        while(tail<n){
+            arr.push_back(arr1[tail]);
+            tail++;
+        }
+        
+        while(head<m){
+            arr.push_back(arr2[head]);
+            head++;
+        }
+        return arr;
+    }
