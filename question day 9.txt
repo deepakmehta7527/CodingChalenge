@@ -1,0 +1,11 @@
+//rotate image question
+https://tinyurl.com/bdhhad56
+
+//rotate a 2D array
+https://tinyurl.com/mw6femke
+
+//transpose matrix
+https://tinyurl.com/2mhpb7dp
+
+//search 2d matrix
+https://tinyurl.com/5n7dd67x
