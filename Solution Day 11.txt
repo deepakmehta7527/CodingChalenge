@@ -1,0 +1,62 @@
+//Maximum Occuring Character
+char getMaxOccuringChar(string str)
+    {
+        // Your code here
+        int count[26]={0};
+          
+        // for(int i=0; i<26; i++) 
+        //     count[i]=0; 
+         
+        //calculate frequency 
+        for(int i=0; i<str.size(); i++) 
+        { 
+            int index= str[i]-'a'; 
+            count[index]++; 
+        } 
+         
+        //calculate maximum 
+        int max=-1, ans; 
+        for(int i=0;i<26;i++) 
+        { 
+            if(count[i]>max){ 
+                max = count[i]; 
+                ans = i; 
+            } 
+        } 
+         
+            return 'a' + ans; 
+    }
+
+//Palindrome String
+int isPalindrome(string s)
+	{
+	    // Your code goes here
+	   int i=0;
+	   int j=s.size()-1;
+	   while(i<j){
+	       if(s[i]!=s[j])
+	       return 0;
+	       i++,j--;
+	   }return 1;
+	}
+
+//Binary String
+long binarySubstring(int n, string a){
+        
+        // Your code here
+        //if n=1 then possible element can be 0 or 1 so those condition  handle used 
+        if(n<2){
+            return 0;
+        }
+        
+        long ans;
+        int count=0;
+        for(int i=0;i<n;i++){
+         if(a[i]=='1') count++;        
+        }
+        
+        //used formula n combination of element
+        ans=count*(count-1);
+        ans=ans/2;
+        return ans;
+    }
