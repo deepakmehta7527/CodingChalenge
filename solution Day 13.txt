@@ -1,0 +1,85 @@
+//Min Number of Flips
+//first approach
+int minFlips (string S) 
+{ 
+    int count1=0, count2=0; 
+    bool flag=0; 
+     
+    int i=0 ;
+    while(i<S.size()) 
+    { 
+    
+        if(flag!=S[i]-'0'){ 
+            count1++; 
+        }
+    
+        flag= !flag; 
+         i++;
+    }; 
+     
+    flag = 1; 
+    i=0;
+    while(i<S.size()) 
+    { 
+        if(flag!=S[i]-'0') {
+            count2++; 
+        }
+        flag = !flag;  
+         i++;
+    }; 
+     
+  return min(count1, count2);     
+}
+//second approach
+
+
+int minFlips (string S)
+{
+    // your code here
+    int ans1=0,ans2=0;
+    for(int i=0;i<S.size();i++){
+        if((S[i]-'0')!=(i%2))
+        ans1++;
+        if((S[i]-'0')!=((i+1)%2))
+        ans2++;
+    }
+    return min(ans1,ans2);
+}
+
+//Merge two strings
+string merge (string S1, string S2)
+{
+    // your code here
+    string s;
+    int i=0;
+    int j=0;
+    while(i<S1.size() && j<S2.size()){
+        s=s+S1[i];
+        s=s+S2[j];
+        i++,j++;
+    }
+    while(i<S1.size()){
+        s=s+S1[i];
+        i++;
+    }
+    
+    while(j<S2.size()){
+        s=s+S2[j];
+        j++;
+    }
+    return s;
+}
+
+
+//To Lower Case
+
+ string toLowerCase(string s) {
+        
+        for(int i=0;i<s.size();i++){
+            if(s[i]>='A' && s[i]<='Z'){
+            //first we take different between two character ex:-s[B]-A=1 then after add a+1=lowercase
+                s[i]='a'+s[i]-'A';
+            }
+        }
+        return s;
+    }
