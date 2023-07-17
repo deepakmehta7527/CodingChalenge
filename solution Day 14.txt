@@ -1,0 +1,150 @@
+//Longest commonPrefix
+
+ string longestCommonPrefix (string arr[], int N)
+    {
+        // your code here
+        int count=0;
+        int m=INT_MAX;
+        //findout minimum size of string lenght
+        for(int i=0;i<N;i++){
+            if(m>arr[i].size()){
+                m=arr[i].size();
+            }
+        }
+        
+        //now loop will execute till minimum number of row
+        for(int i=0;i<m;i++){
+            for(int j=1;j<N;j++){
+                if(arr[j-1][i]!=arr[j][i]){
+                    if(count)
+                    return arr[0].substr(0,count);
+                    else
+                    return "-1";
+                }
+            }
+            count++;
+        }
+         if(count)
+           return arr[0].substr(0,count);
+        //   else
+        //     return "-1";
+        
+    }
+
+//longest Unique substring
+
+ int longestUniqueSubsttr(string S){
+        //code
+     
+      bool count[26]={0};  
+      int first=0,second=1,total=1;
+      int size=S.size();
+      count[S[0]-'a']=1;
+      while(second<size){
+          //when character repeat then this condition will run
+          while(count[S[second]-'a']){
+              count[S[first]-'a']=0;
+              first++;
+          }
+          //if doesn't repeat character this condition will run
+          count[S[second]-'a']=1;
+          total=max(total,second-first+1);
+          second++;
+      }
+      return total;
+    }
+
+
+//longest prefix and suffix
+
+int lps(string s) {
+	    
+	    //lps store matching character index like 
+	    //0  1   2    3           4
+	    //   a   b   a[lps[1]]   b[lps[2]] here 'a' matching with first index so store in Lps
+	    int Lps[s.size()+1]={0};
+	    //str storing charactor like
+	    //0 1 2 3 4
+	    //  a b a b
+	   
+	    char str[s.size()+1];
+	    for(int i=0;i<s.size();i++){
+	        str[i+1]=s[i];
+	    }
+	   
+	    int first=0,second=2;
+	    while(second<=s.size()){
+	        if(str[first+1]==str[second]){
+	            Lps[second]=first+1;
+	            first++,second++;
+	        }
+	        else{
+	            if(first==0)
+	            second++;
+	            else
+	            //when condition will not match then we move last index to search character
+	            first=Lps[first];
+	        }
+	    }
+	    return Lps[s.size()];
+	}
+
+
+//Sum of two large numbers
+
+
+ string findSum(string X, string Y) {
+        // Your code goes here
+        int i=X.size()-1;
+        int j=Y.size()-1;
+        string ans="";
+        int carry=0,rem,num1;
+        char c;
+        while(i>=0 && j>=0){
+            //first we convert character digit into number and add along with carry digit 
+            num1=X[i]-'0'+Y[j]-'0'+carry;
+            //whatever digit store num1 after compute in that value we extract remaining digit
+            rem=num1%10;
+            //extract carry digit number
+            carry=num1/10;
+            //now remaining digit we convert into string so first we convert into char
+            c=rem+'0';
+            //after convert into char then we add into string
+            ans+=c;
+            i--,j--;
+        }
+        
+        //example X="125" and Y="4" so remaining part compute this loop
+        while(i>=0){
+            num1=X[i]-'0'+carry;
+            rem=num1%10;
+            carry=num1/10;
+            c=rem+'0';
+            ans+=c;
+            i--;
+        }
+        
+    //example X="4" and Y="124" so remaining part compute this loop
+        while(j>=0){
+            num1=Y[j]-'0'+carry;
+            rem=num1%10;
+            carry=num1/10;
+            c=rem+'0';
+            ans+=c;
+            j--;
+        }
+        
+        //5+5=10 and carry '1' remaining to add so after complete loop execution it would be add
+        if(carry){
+            ans+='1';
+        }
+        int k=ans.size()-1;
+        //may possible ans be [0000] so you couldn't return those result so just pop element
+        while(k>0 && ans[k]=='0'){
+            ans.pop_back();
+            k--;
+        }
+        reverse(ans.begin(),ans.end());
+        return ans;
+    }
+
