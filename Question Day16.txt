@@ -1,0 +1,11 @@
+//Bubble sort
+https://tinyurl.com/yc4uvf9s
+
+
+//Selection sort
+https://tinyurl.com/yc43cv3c
+
+
+
+//Insertion sort
+https://tinyurl.com/5n6tfkmk
