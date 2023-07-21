@@ -1,0 +1,42 @@
+//Merge sort
+
+void merge(int arr[], int l, int m, int r)
+    {
+         // Your code here
+         int *ans=new int[r-l+1];
+         int first=l,second=m+1,pos=0;
+         while(first<=m && second<=r){
+             if(arr[first]<=arr[second]){
+              ans[pos]=arr[first];
+              pos++,first++;
+             }
+              else{ ans[pos]=arr[second];
+              second++,pos++;
+                  
+              }
+         }
+         while(first<=m){
+             ans[pos]=arr[first];
+             first++,pos++;
+         }
+            while(second<=r){
+             ans[pos]=arr[second];
+             second++,pos++;
+         }
+         
+          pos=0,m=l;
+         while(m<=r){
+             arr[m]=ans[pos];
+             m++,pos++;
+         }
+         delete []ans;
+    }
+    public:
+    void mergeSort(int arr[], int l, int r)
+    {
+        if(l==r) return;
+        int mid=l+(r-l)/2;
+        mergeSort(arr,l,mid);
+        mergeSort(arr,mid+1,r);
+        merge(arr,l,mid,r);
+    }
