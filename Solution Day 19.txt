@@ -1,41 +1,21 @@
-void merge(int arr[], int l, int m, int r)
+ void quickSort(int arr[], int low, int high)
     {
-         // Your code here
-         int *ans=new int[r-l+1];
-         int first=l,second=m+1,pos=0;
-         while(first<=m && second<=r){
-             if(arr[first]<=arr[second]){
-              ans[pos++]=arr[first++];
-           
-             }
-              else{ ans[pos++]=arr[second++];
-            
-                  
-              }
-         }
-         while(first<=m){
-             ans[pos++]=arr[first++];
-          
-         }
-            while(second<=r){
-             ans[pos++]=arr[second++];
-            
-         }
-         
-          pos=0,m=l;
-         while(m<=r){
-             arr[m++]=ans[pos++];
-            
-         }
-         delete ans;
+        // code here
+        if(low>=high) return;
+        int index=partition(arr,low,high);
+        quickSort(arr,low,index-1);
+        quickSort(arr,index+1,high);
     }
 
-
-void mergeSort(int arr[], int l, int r)
+int partition (int arr[], int low, int high)
     {
-        if(l==r) return;
-        int mid=l+(r-l)/2;
-        mergeSort(arr,l,mid);
-        mergeSort(arr,mid+1,r);
-        merge(arr,l,mid,r);
+       // Your code here
+      int pos=low;
+      for(int i=low;i<=high;i++){
+          if(arr[high]>=arr[i]){
+              swap(arr[i],arr[pos]);
+               pos++;
+          }
+      }
+      return pos-1;
     }
