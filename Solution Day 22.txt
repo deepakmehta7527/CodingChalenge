@@ -1,0 +1,36 @@
+void permutation(vector<vector<int>>&ans,vector<int>&ds,vector<int>&n,map<int,int>frequency){
+     int s=n.size();
+         if(ds.size()==n.size()){
+             ans.push_back(ds);
+            return;
+         }
+       
+       for(int i=0;i<n.size();i++){
+           //if unmark then condition execute otherwise not
+           if(!frequency[i]){
+                 ds.push_back(n[i]);
+                 frequency[i]=1;
+                permutation(ans,ds,n,frequency);
+                frequency[i]=0;
+                ds.pop_back();
+
+           }
+       }
+
+
+     }
+
+
+ vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>>ans;
+        vector<int>ds;
+     map<int,int>frequency;
+     for(int i=0;i<nums.size();i++){
+         frequency[i]=0;
+     }
+      permutation(ans,ds,nums,frequency);
+      return ans;
+    }
+
+
+
