@@ -1,4 +1,5 @@
 void  findcombination(int ind,int target,vector<int>&arr,vector<vector<int>>&ans,vector<int>&ds){
+//when index matches with size then it will check condition according to condition perform operation 
 if(ind==arr.size()){
     if(target==0){
         ans.push_back(ds);
@@ -6,11 +7,13 @@ if(ind==arr.size()){
     return;
 }
 //pick element
+//when array element less then target perform pick element 
 if(arr[ind]<=target){
     ds.push_back(arr[ind]);
     findcombination(ind,target-arr[ind],arr,ans,ds);
     ds.pop_back();
 }
+//not pick element
   findcombination(ind+1,target,arr,ans,ds);
 }
 
