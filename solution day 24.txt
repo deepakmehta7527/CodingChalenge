@@ -1,0 +1,27 @@
+//Check if circular linked list
+
+bool isCircular(Node *head)
+{
+   // Your code here
+   Node *first=head;
+   while(first!=NULL){
+       first=first->next;
+       if(first==head)
+       return 1;
+   }
+   return false;
+}
+
+
+//count nodes 2nd question
+
+int getCount(struct Node* head){
+    
+        //Code here
+        int count=0;
+        while(head){
+            head=head->next;
+            count++;
+        }
+    return count;
+    }
