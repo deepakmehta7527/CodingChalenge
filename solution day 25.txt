@@ -1,0 +1,18 @@
+Node *sortedInsert(struct Node* head, int data) {
+        // Code here
+        if(head->data>data){
+          struct Node *temp=new Node(data);
+          temp->next=head;
+          head=temp;
+          return head;
+      }
+     struct Node *first=head;
+    while(first->next && first->next->data<data){
+        first=first->next;
+    }
+    struct Node *temp=new Node(data);
+    temp->next=first->next;
+    first->next=temp;
+    return head;
+    
+    }
