@@ -1,0 +1,18 @@
+//Delete without head pointer
+https://tinyurl.com/2jdyyukr
+
+
+
+//Intersection of two sorted Linked lists
+https://tinyurl.com/mry6rjjr
+
+
+//Intersection Point in Y Shaped Linked Lists
+https://tinyurl.com/5h8htdup
+
+
+// Search Insert Position
+https://tinyurl.com/9f9mnsvx
+
+//Linked List Insertion
+https://tinyurl.com/bdcpuht8

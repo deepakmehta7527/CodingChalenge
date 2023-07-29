@@ -1,0 +1,133 @@
+//Delete without head pointer
+void deleteNode(Node *del)
+    {
+       // Your code here
+       del->data=del->next->data;
+       Node *temp=del->next;
+       del->next=del->next->next;
+       delete(temp);
+      
+       
+       
+    }
+
+//Intersection of two sorted Linked lists
+Node* findIntersection(Node* head1, Node* head2)
+{
+    // Your Code Here
+    vector<int>arr;
+    Node*first,*second;
+    first=head1;
+    second=head2;
+    while(first &&second){
+        if(first->data<second->data){
+            first=first->next;
+        }
+        else if(first->data>second->data){
+            second=second->next;
+        }
+        else{
+            arr.push_back(first->data);
+            first=first->next;
+            second=second->next;
+        }
+    }
+    
+    Node *head=new Node(arr[0]);
+    Node *temp=head;
+    for(int i=1;i<arr.size();i++){
+        Node *tail=new Node(arr[i]);
+        temp->next=tail;
+        temp=tail;
+    }
+ return head;   
+    
+}
+
+
+
+
+//Intersection Point in Y Shaped Linked Lists
+int intersectPoint(Node* head1, Node* head2)
+{
+    // Your Code Here
+    Node *first=head1;
+    Node *second=head2;
+    int count1=0;
+    int count2=0;
+    while(first){
+        count1++;
+        first=first->next;
+    }
+    while(second){
+        count2++;
+        second=second->next;
+    }
+    while(count1>count2){
+        head1=head1->next;
+        count1--;
+    }
+        while(count2>count1){
+        head2=head2->next;
+        count2--;
+    }
+    
+    while(head1&&head2&&head1!=head2){
+        head1=head1->next;
+        head2=head2->next;
+    }
+    if(head1 &&head2){
+        return head1->data;
+    }return -1;
+    
+}
+
+// Search Insert Position
+int searchInsert(vector<int>& nums, int target) {
+     int start=0;
+     int end=nums.size()-1;
+     int result=-1;
+     while(start<=end){
+      int mid=start+(end-start)/2;
+      if(target==nums[mid]){
+       return mid;
+      }
+      else if(target<nums[mid]){
+           result=mid;
+          end=mid-1;
+      }
+      else {
+          result=mid+1;
+      start=mid+1;
+      }
+
+     }   
+    return result;
+    }
+//Linked List Insertion
+Node *insertAtBegining(Node *head, int x) {
+       // Your code here
+       
+        Node *temp=new Node(x);
+        temp->next=head;
+        head=temp;
+        return head;
+       
+    }
+    
+    
+    //Function to insert a node at the end of the linked list.
+    Node *insertAtEnd(Node *head, int x)  {
+       // verify head is null 
+       Node *temp=new Node(x);
+       if(head==0){
+           return temp;
+       }
+       Node *current=head;
+       while(current->next){
+           current=current->next;
+       }
+       current->next=temp;
+       return head;
+    }
+
