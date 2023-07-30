@@ -1,0 +1,48 @@
+// Middle of the Linked List
+
+ ListNode* middleNode(ListNode* head) {
+        
+        ListNode *fast=head;
+        ListNode *slow=head;
+        //fa
+        while(fast!=NULL && fast->next!=NULL ){
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+        return slow;
+    }
+
+
+//Check if Linked List is Palindrome
+
+ bool isPalindrome(Node *head)
+    {
+        if(head==0) return 0;
+        
+        //Your code here
+        Node *fast=head;
+        Node *slow=head;
+        while(fast && fast->next){
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+        //revere half of link list
+        Node *current=slow;
+        Node *pre=NULL;
+        Node *next;
+        while(current){
+            next=current->next;
+            current->next=pre;
+            pre=current;
+            current=next;
+        }
+        
+        while(pre){
+            if(pre->data!=head->data){
+                return false;
+            }
+            pre=pre->next;
+            head=head->next;
+        }
+        return true;
+    }
