@@ -1,0 +1,31 @@
+ Node* deleteNode(Node *head, int x)
+    {
+      //Your code here
+      if(head==NULL){
+          return NULL;
+      }
+      
+      //removing head nodes
+      if(x==1){
+          head=head->next;
+          return head;
+      }
+      
+      Node *current=head;
+      int count=1;
+      
+      //case:-removing middle nodes
+      while(current->next!=0){
+          if(x==count){
+              current->prev->next=current->next;
+              current->next->prev=current->prev;
+          }
+          current=current->next;
+          count++;
+      }
+      //case:-remove last node
+      if(x==count){
+          current->prev->next=current->next;
+      }
+      return head;
+    }
