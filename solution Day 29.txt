@@ -1,0 +1,83 @@
+//Rearrange a linked list
+
+
+ void rearrangeEvenOdd(Node *head)
+    {
+       // Your Code here
+       Node *odd=head;
+       Node *even=head->next;
+       Node *link=head->next;
+       while(even &&even->next){
+           odd->next=odd->next->next;
+           even->next=even->next->next;
+           odd=odd->next;
+           even=even->next;
+       }
+       odd->next=link;
+    }
+
+
+//linked list cycle
+
+
+ ListNode *detectCycle(ListNode *head) {
+        ListNode* rabbit=head;
+        ListNode *tortoise=head;
+        while(rabbit && rabbit->next){
+            //tortoise speed slow
+            tortoise=tortoise->next;
+            //rabbit speed fast
+            rabbit=rabbit->next->next;
+            // "rabbit" will meet any place with "tortoise" so that "rabbit" again initial point to start running
+            if(rabbit==tortoise){
+   //now rabbit and tortoise speed equal so both will win match together
+                rabbit=head;
+                
+                while(tortoise!=rabbit){
+                    tortoise=tortoise->next;
+                    rabbit=rabbit->next;
+                }
+                //so either you can return rabbit or tortoise
+                return tortoise;
+            }
+        }
+        return NULL;
+    }
+
+
+//Clone a linked list with next and random pointer
+
+
+Node *copyList(Node *head)
+    {
+        //we have created clone of linked list
+        Node* clone=head;
+        while(clone){
+            Node *temp=new Node(clone->data);
+           temp->next=clone->next;
+           clone->next=temp;
+           clone=temp->next;
+        }
+        
+        //after created clone then linked list with random pointer
+        clone=head;
+        while(clone){
+            if(clone->arb){
+                clone->next->arb=clone->arb->next;
+            }
+            clone=clone->next->next;
+        }
+        
+        
+        
+        //separated original linked list and clone link list
+        Node *ans=head->next;
+        clone=head;
+        Node *temp=head->next;
+        while(temp){
+            clone->next=temp->next;
+            clone=temp;
+            temp=temp->next;
+        }
+        return ans;
+    }

@@ -1,0 +1,12 @@
+//Rearrange a linked list
+https://tinyurl.com/mupkfr4s
+
+
+
+//linked list cycle
+https://tinyurl.com/5fhy239s
+
+
+//Clone a linked list with next and random pointer
+https://tinyurl.com/39dxek2b
+
