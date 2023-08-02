@@ -1,0 +1,54 @@
+ //function of reverse link list
+    Node *reverse(Node *head,int n){
+        Node *first=head;
+        Node *prev=NULL;
+    
+        while(n--){
+            Node *temp=first->next;
+            first->next=prev;
+            prev=first;
+            first=temp;
+        }
+        return prev;
+    }
+    
+    
+    Node* reverseBetween(Node* head, int m, int n)
+    {
+        //first we store indicate address of m and n element
+        int count1=m;
+        int count2=n;
+        Node *first=NULL;
+        Node *second=head;
+        
+        while(count2--){
+            count1--;
+            //when count1 will be equal to 1 then there address will store
+            if(count1==1){
+                first=second;
+            }
+            // last element address store
+            second=second->next;
+        }
+        
+        //in above case if first is NULL 
+        if(first==NULL){
+            // second also nulL
+            if(second==NULL){
+                return reverse(head,n);
+            }
+            //if second not null
+            else{
+                Node *temp=head;
+             Node *ans=reverse(head,n);
+                temp->next=second;
+                return ans;
+            }
+        }
+        
+        //this will work both "second NULL" and "first or second not NULL"
+        Node *temp=first->next;  //1 2 3 and temp=1 and after reverse 3 2 1 temp->endindex
+        first->next=reverse(first->next,n-m+1);  //initial link with first->next link with reverse
+        temp->next=second;  //head pointer link with last remaining address
+        return head;
+    }
