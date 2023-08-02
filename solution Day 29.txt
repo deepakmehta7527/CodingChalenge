@@ -71,7 +71,7 @@ Node *copyList(Node *head)
         
         
         //separated original linked list and clone link list
-        Node *ans=head->next;
+        Node *ans=head->next;  //store ans before separated link list head->next pointing cloning node that is our ans
         clone=head;
         Node *temp=head->next;
         while(temp){
