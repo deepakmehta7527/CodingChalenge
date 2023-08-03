@@ -1,0 +1,46 @@
+//Parenthesis Checker
+
+bool ispar(string x)
+    {
+        // Your code here
+        stack<char>st; 
+        for(auto it: x) {
+            if(it=='(' || it=='{' || it == '[') st.push(it); 
+           else{
+             if(st.empty()){return false;
+           }
+           char c=st.top();
+           st.pop();
+           if((it==')' && c=='(')||(it=='}'&&c=='{')||(it==']'&& c=='[')) continue;
+           else return false;
+        }
+    }
+    return st.empty();
+}
+
+
+
+//Delete middle element of a stack
+
+ void deleteMid(stack<int>&s, int sizeOfStack)
+    {
+        // code here..
+        
+        
+        
+        stack<int>temp;
+        int count=sizeOfStack/2;
+    while(count){
+        temp.push(s.top());
+        s.pop();
+        count--;
+    }
+    s.pop();
+    
+    while(temp.size()){
+        s.push(temp.top());
+        temp.pop();
+        
+    }
+        
+    }
