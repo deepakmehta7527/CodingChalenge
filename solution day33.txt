@@ -1,0 +1,47 @@
+ int clumsy(int n) {
+        stack<int>s;
+        s.push(n);
+        
+        n--;
+        int i=0;
+        while(n){
+            if(i==0){
+                int num=s.top();
+                s.pop();
+                s.push(num*n);
+            }
+            else if(i==1){
+                int num=s.top();
+                s.pop();
+                s.push(num/n);
+            }
+            else{
+                s.push(n);
+            }
+            n--;
+            i=(i+1)%4;
+        }
+
+
+        stack<int>s2;
+        while(s.size()){
+            s2.push(s.top());
+            s.pop();
+        }
+       
+        int ans=s2.top();
+        s2.pop();
+        bool flag=0;
+        while(s2.size()){
+          if(flag==0){
+              ans+=s2.top();
+                s2.pop();
+          }
+          else{
+              ans-=s2.top();
+              s2.pop();
+          }
+          flag=!flag;
+        }
+       return ans;
+    }
