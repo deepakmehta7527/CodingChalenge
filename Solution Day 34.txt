@@ -1,0 +1,32 @@
+//Function to find the next greater element for each element of the array.
+    vector<long long> nextLargerElement(vector<long long> arr, int n){
+        // Your code here
+        stack<int>s;
+        int i=0;
+        vector<long long>ans(n);
+        while(i<n){
+            //stack is empty
+            if(s.size()==0){
+                s.push(i);
+            }
+            else{  //stack non empty
+                //if top element of stack is greater then array element 
+                if(arr[s.top()]>=arr[i]){
+                s.push(i);
+                }
+                else{
+                    while(s.size()&& arr[s.top()]<arr[i]){
+                        ans[s.top()]=arr[i];
+                        s.pop();
+                    };
+                }
+                s.push(i);
+            }
+            i++;
+        }
+        while(s.size()){
+            ans[s.top()]=-1;
+            s.pop();
+        }
+        return ans;
+    }
