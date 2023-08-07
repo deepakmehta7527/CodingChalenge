@@ -1,0 +1,56 @@
+//Make the array beautiful
+
+ vector<int> makeBeautiful(vector<int> arr) {
+        // code here
+        stack<int>s;
+        for(int i=0;i<arr.size();i++){
+            if(s.size()==0){
+                s.push(arr[i]);
+            }
+            else{
+                if((s.top()>=0 && arr[i]<0)||(s.top()<0 && arr[i]>=0)) s.pop();
+                else
+                s.push(arr[i]);
+            }
+        }
+        
+        vector<int>ans;
+        while(s.size()){
+            ans.push_back(s.top());
+            s.pop();
+        }
+        reverse(ans.begin(),ans.end());
+        return ans;
+        
+    }
+
+
+//Redundant Braces
+
+int Solution::braces(string A) {
+
+    stack<char>s;
+
+    int count,i=0;
+    while(i<A.size()){
+        //when i will be equal to ")" then if condition will terminate
+        if(A[i]!=')'){
+            s.push(A[i]);
+        }
+        else{
+            //counting how many pop form stack
+            count=0;
+             while(s.size() && s.top()!='(')
+             count++,s.pop();
+            
+//if stack have less then 3 element  then return false            
+            if(count<3)
+            return 1;
+            //above condition false then pop '(' this braces also 
+            s.pop(); 
+            s.push('q');// now anything push as a result 
+        }
+        i++;
+                      }
+    return 0;
+    }
