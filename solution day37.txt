@@ -1,0 +1,170 @@
+//Geeksforgeek solution
+
+vector<long long> rightSmaller(int n, long long a[]){
+vector<long long>ans(n);
+stack<int>s;
+int i=0;
+while(i<n){
+  if(s.size()==0){
+    s.push(i);
+  }else{
+    if(a[i]>=a[s.top()])
+    s.push(i);
+    else{
+      while(s.size()&& a[s.top()]>a[i]){
+        ans[s.top()]=i;
+        s.pop();
+      }
+      s.push(i);
+    }
+  }
+  i++;
+}
+
+while(s.size()){
+  ans[s.top()]=n;
+  s.pop();
+}
+return ans;
+}
+
+
+vector<long long> leftSmaller(int n,long long a[]){
+        // code here
+vector<long long>ans(n);
+stack<int>s;
+int i=n-1;
+while(i>=0){
+  if(s.size()==0)
+  s.push(i);
+  else{
+    if(a[i]>=a[s.top()])
+    s.push(i);
+    else{
+      while(s.size() && a[s.top()]>a[i]){
+          ans[s.top()]=i;
+          s.pop();
+      }
+    s.push(i);
+    }
+  }
+  i--;
+}
+while(s.size()){
+  ans[s.top()]=-1;
+  s.pop();
+}
+
+
+ return ans;
+    }
+    
+    
+    long long getMaxArea(long long arr[], int n)
+    {
+        
+        vector<long long>right=rightSmaller(n,arr);
+        
+        vector<long long>left=leftSmaller(n,arr);
+        
+        long long w,h,area=0,ans;
+        int i=0;
+        while(i<n){
+            h=arr[i];
+            w=right[i]-left[i]-1;
+            ans=h*w;
+            area=max(ans,area);
+            i++;
+        }
+        return area;
+    }
+
+
+
+
+//Leetcode Questions
+
+//this function compute all smaller element right side and if any case not have then replace with nth element 
+vector<int> rightSmaller(int n, vector<int>&a){
+vector<int>ans(n);
+stack<int>s;
+int i=0;
+while(i<n){
+  if(s.size()==0){
+    s.push(i);
+  }else{
+    if(a[i]>=a[s.top()])
+    s.push(i);
+    else{
+      while(s.size()&& a[s.top()]>a[i]){
+        ans[s.top()]=i;
+        s.pop();
+      }
+      s.push(i);
+    }
+  }
+  i++;
+}
+while(s.size()){
+  ans[s.top()]=n;
+  s.pop();
+}
+return ans;
+}
+
+
+//this function compute all left smaller element if doesn't find then replace with -1 element;
+vector<int> leftSmaller(int n, vector<int>&a){
+      
+vector<int>ans(n);
+stack<int>s;
+int i=n-1;
+while(i>=0){
+  if(s.size()==0)
+  s.push(i);
+  else{
+    if(a[i]>=a[s.top()])
+    s.push(i);
+    else{
+      while(s.size() && a[s.top()]>a[i]){
+          ans[s.top()]=i;
+          s.pop();
+      }
+    s.push(i);
+    }
+  }
+  i--;
+}
+
+while(s.size()){
+  ans[s.top()]=-1;
+  s.pop();
+}
+
+
+ return ans;
+    }
+
+
+
+
+
+    int largestRectangleArea(vector<int>& heights) {
+        int n=heights.size();
+        vector<int>left=leftSmaller(n,heights);
+         vector<int>right=rightSmaller(n,heights);
+      int i=0,area=0,h,w,ans;
+      while(i<n){
+        //store height of rectangle
+           h=heights[i];
+           //calculate width of area
+           w=right[i]-left[i]-1;
+           ans=h*w;
+           //compare already stored rectangle area
+           area=max(area,ans);
+      i++;
+      }
+
+return area;
+
+    }
