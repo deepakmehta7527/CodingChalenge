@@ -1,0 +1,134 @@
+ //Function to find if there is a celebrity in the party or not.
+    int celebrity(vector<vector<int> >& M, int n) 
+    {
+        // just put everyone in stack we don't know about celebrity
+        
+        stack<int>s;
+        for(int i=0;i<n;i++)
+        s.push(i);
+        
+        int first,second;
+        //we are compare two person who know other but other don't know first
+        while(s.size()>1){
+            first=s.top();
+            s.pop();
+            second=s.top();
+            s.pop();
+            
+            if(M[first][second] && M[second][first]==0)
+            s.push(second);
+            else if(M[second][first]&&M[first][second]==0)
+            s.push(first);
+        }
+        
+        //if everyone one know each other so no celebrity exist
+        if(s.size()==0){
+            return -1;
+        }
+        
+        //if only one person exist in party so in that case we compare with other person 
+        int check=s.top();
+        int count_row=0,count_col=0;
+        for(int i=0;i<n;i++){
+            count_col+=M[check][i];
+            count_row+=M[i][check];
+        }
+        //after compare other person if that person don't know anyone return true
+        if(count_col==0&&count_row==n-1)
+        return check;
+        else
+        return -1;
+        
+    }
+
+
+
+  //Function to find maximum of minimums of every window size.
+    
+    vector<int>leftsmallest(int arr[],int n){
+     vector<int>ans(n);
+      stack<int>s;
+      int i=n-1;
+      while(i>=0){
+          if(s.size()==0)
+          s.push(i);
+          else{
+              if(arr[i]>=arr[s.top()])
+              s.push(i);
+              else{
+                  while(s.size() && arr[s.top()]>arr[i]){
+                      ans[s.top()]=i;
+                      s.pop();
+                  }
+                  s.push(i);
+              }
+          }
+          
+          i--;
+      }
+     
+     while(s.size()){
+         ans[s.top()]=-1;
+         s.pop();
+     }
+    
+     return ans;   
+    }
+    
+    
+    vector<int>rightsmallest(int arr[],int n){
+    vector<int>ans(n);
+    stack<int>s;
+    int i=0;
+    while(i<n){
+        if(s.size()==0)
+        s.push(i);
+        else{
+            if(arr[i]>=arr[s.top()])
+            s.push(i);
+            else{
+                while(s.size() && arr[s.top()]>arr[i]){
+                    ans[s.top()]=i;
+                    s.pop();
+                }
+                s.push(i);
+            }
+        }
+        
+        i++;
+    }
+    
+    while(s.size()){
+        ans[s.top()]=n;
+        s.pop();
+    }
+    
+    
+    return ans;    
+    }
+    
+    vector <int> maxOfMin(int arr[], int n)
+    {
+        // Your code here
+        vector<int>left=leftsmallest(arr,n);
+        vector<int>right=rightsmallest(arr,n);
+        
+        vector<int>maxwindow(n);
+        
+        
+        
+        int maxsize=0;
+        for(int i=0;i<n;i++){
+            maxsize=right[i]-left[i]-2;
+          maxwindow[maxsize]=max(maxwindow[maxsize],arr[i]);
+        }
+        
+        //if n=n-2 use because we couldn't compare with null value n=5 so n=n-2=3 so compare 3 and 4
+        for(int i=n-2;i>=0;i--){
+            //we are compare two element of window size
+            maxwindow[i]=max(maxwindow[i],maxwindow[i+1]);
+        }
+            
+        
+        return maxwindow;
+    }
