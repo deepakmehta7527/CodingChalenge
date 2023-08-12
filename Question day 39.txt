@@ -1,0 +1,15 @@
+
+Question:-Queue Reversal
+//https://tinyurl.com/3dtzsdtw
+
+Question2:-Stack using two queues
+//https://tinyurl.com/59spuand
+
+Question3:-Queue using two Stacks
+//https://tinyurl.com/4rskeyra
+
+Question4:-Time Needed to Buy Tickets
+//https://tinyurl.com/24uwjaa9
+
+Question5:-Reverse First K elements of Queue
+//https://tinyurl.com/4esyvpa9
