@@ -1,0 +1,61 @@
+//First negative integer in every window of size k
+vector<long long> printFirstNegativeInteger(long long int A[],
+                                             long long int N, long long int k) {
+                                                 
+            vector<long long int>ans;
+            queue<long long int>q;
+            //first window size is "K=4" so we first store 3 window size negative value 
+            for(int i=0;i<k-1;i++){
+                if(A[i]<0)q.push(i);
+            }
+            //now each time we include 1 number and also push result in queue
+            for(int i=k-1;i<N;i++){
+                if(A[i]<0) q.push(i);
+                if(q.empty())
+                ans.push_back(0);
+                else
+                ans.push_back(A[q.front()]);
+                
+                //we use formula "i-k+1" example i=5,k=3 so 5-3+1=3 index 3 check that present in queue if yes then remove
+                if(!q.empty()&&q.front()<=i-k+1)
+                q.pop();
+            }
+           return ans;
+                                                 
+ }
+
+
+
+//Circular tour
+
+  //Function to find starting point where the truck can start to get through
+    //the complete circle without exhausting its petrol in between.
+    int tour(petrolPump p[],int n)
+    {
+       //Your code here
+       int petrol=0;
+        int front=0;
+         int rear=0;
+    
+         while(front<n){
+             //store remaining petrol
+             petrol+=(p[rear].petrol-p[rear].distance);
+             //if you don't have petrol then again storage restart
+             if(petrol<0){
+                 //when rear come behind front
+                 if(rear<front) return -1;
+                 //again storage restart
+                 petrol=0;
+                 //move distance travelling other petrol pump
+                 front=rear+1;
+                 rear=front;
+             }
+             else{
+                 //how many distance you covered previous(front) to current(rear) pump
+                 rear=(rear+1)%n;
+                 //if any case current pump and previous pump come same place
+                 if(front==rear) return front;
+             }
+         }
+         return -1;
+    }
