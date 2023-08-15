@@ -1,0 +1,11 @@
+//preorder question
+https://practice.geeksforgeeks.org/problems/preorder-traversal/1
+
+//inorder question
+https://practice.geeksforgeeks.org/problems/inorder-traversal/1
+
+//postorder question
+https://practice.geeksforgeeks.org/problems/postorder-traversal/1
+
+//count leaves 
+https://practice.geeksforgeeks.org/problems/count-leaves-in-binary-tree/1
