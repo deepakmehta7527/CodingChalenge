@@ -1,0 +1,64 @@
+//preorder traversal of the tree
+void preordert(Node *root,vector<int>&ans){
+    if(!root) return;
+    
+    ans.push_back(root->data);
+    preordert(root->left,ans);
+    preordert(root->right,ans);
+}
+
+vector <int> preorder(Node* root)
+{
+  // Your code here
+  vector<int>ans;
+ preordert(root,ans);
+  return ans;
+}
+
+
+
+// postorder traversal of the tree.
+void postorder(Node *root,vector<int>&ans){
+    if(!root) return;
+    
+    postorder(root->left,ans);
+    postorder(root->right,ans);
+    ans.push_back(root->data);
+    
+}
+
+
+vector <int> postOrder(Node* root)
+{
+  // Your code here
+  vector<int>ans;
+  postorder(root,ans);
+  return ans;
+}
+
+vector <int> postOrder(Node* root)
+{
+  // Your code here
+  vector<int>ans;
+  postorder(root,ans);
+  return ans;
+}
+
+
+
+
+//Inorder Traversal
+ void inorder(Node *root,vector<int>&ans){
+       if(!root) return;
+       inorder(root->left,ans);
+       ans.push_back(root->data);
+       inorder(root->right,ans);
+   }
+    // Function to return a list containing the inorder traversal of the tree.
+    vector<int> inOrder(Node* root) {
+        // Your code here
+        vector<int>ans;
+        inorder(root,ans);
+        return ans;
+    }
+
