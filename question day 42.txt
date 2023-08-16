@@ -1,0 +1,18 @@
+//Sum of Binary Tree
+
+https://practice.geeksforgeeks.org/problems/sum-of-binary-tree/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
+
+
+//Count Non-Leaf Nodes in Tree
+https://practice.geeksforgeeks.org/problems/count-non-leaf-nodes-in-tree/1
+
+//Height of Binary Tree
+https://practice.geeksforgeeks.org/problems/height-of-binary-tree/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
+
+//Count nodes of linked list
+
+https://practice.geeksforgeeks.org/problems/count-nodes-of-linked-list/1
+
+//Size of Binary Tree
+
+https://practice.geeksforgeeks.org/problems/size-of-binary-tree/1
