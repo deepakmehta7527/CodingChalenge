@@ -1,0 +1,40 @@
+//Diameter of a Binary Tree
+
+int find(Node *root,int &ans){
+      if(!root) return 0;
+      int left=find(root->left,ans);
+      int right=find(root->right,ans);
+      
+      //diameter calculate
+      ans=max(ans,1+left+right);
+      return 1+max(left,right);
+  }
+    // Function to return the diameter of a Binary Tree.
+    int diameter(Node* root) {
+        // Your code hereint 
+        int ans=0;
+        find(root,ans);
+        return ans;
+        
+    }
+
+//Diameter of a Binary Tree
+
+int find(Node *root,int &ans){
+      if(!root) return 0;
+      int left=find(root->left,ans);
+      int right=find(root->right,ans);
+      
+      //diameter calculate
+      ans=max(ans,1+left+right);
+      return 1+max(left,right);
+  }
+    // Function to return the diameter of a Binary Tree.
+    int diameter(Node* root) {
+        // Your code hereint 
+        int ans=0;
+        find(root,ans);
+        return ans;
+        
+    }
+
