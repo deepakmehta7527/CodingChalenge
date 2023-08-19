@@ -1,0 +1,54 @@
+//Function to return a list containing elements of left view of the binary tree.
+vector<int> leftView(Node *root)
+{
+   // Your code here
+ vector<int>ans;
+ if(!root) return ans;
+ queue<Node *>q;
+ q.push(root);
+ //we had push root so size is 1
+ int size;
+ while(!q.empty()){
+     ans.push_back(q.front()->data);
+     size=q.size();
+     //it will not run when size zero 
+     while(size--){
+         Node *temp=q.front();
+       
+         q.pop();
+         if(temp->left)
+         q.push(temp->left);
+         if(temp->right)
+         q.push(temp->right);
+     }
+ }
+ return ans;
+}
+
+
+
+
+
+  //Function to return list containing elements of right view of binary tree.
+    vector<int> rightView(Node *root)
+    {
+       // Your Code here
+      vector<int>ans;
+      if(!root) return ans;
+      queue<Node *>q;
+      q.push(root);
+      int size;
+      while(!q.empty()){
+          ans.push_back(q.front()->data);
+          size=q.size();
+          while(size--){
+              Node *temp=q.front();
+              q.pop();
+              if(temp->right)
+              q.push(temp->right);
+              if(temp->left)
+              q.push(temp->left);
+          }
+      }
+      return ans;
+    }
