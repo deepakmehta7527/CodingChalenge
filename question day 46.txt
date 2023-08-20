@@ -1,0 +1,15 @@
+//Nodes at Odd Levels
+https://practice.geeksforgeeks.org/problems/nodes-at-odd-levels/1
+
+
+//Maximum difference between node and its ancestor
+https://practice.geeksforgeeks.org/problems/maximum-difference-between-node-and-its-ancestor/1
+
+
+//Root to leaf paths sum
+
+https://practice.geeksforgeeks.org/problems/root-to-leaf-paths-sum/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
+
+
+//Sum Tree
+https://practice.geeksforgeeks.org/problems/sum-tree/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article

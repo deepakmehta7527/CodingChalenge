@@ -1,0 +1,105 @@
+1)//Nodes at Odd Levels
+
+void oddlevels(Node *root,vector<Node *>&ans,int level){
+       
+       if(!root) return;
+       
+       if(level%2==1)
+       ans.push_back(root);
+       oddlevels(root->left,ans,level+1);
+       oddlevels(root->right,ans,level+1);
+       
+   }
+
+    vector<Node *> nodesAtOddLevels(Node *root)
+    {
+        //code here
+        int level=1;
+        vector<Node *>ans;
+        oddlevels(root,ans,level);
+        return ans;
+        
+    }
+
+
+
+
+2)//Function to return the maximum difference between any node and its ancestor.
+
+void find(Node *root,int anch_max,int &diff){
+    if(!root)return;
+    //check and storing higher maximum difference of two nodes
+    diff=max(diff,anch_max-root->data);
+    //during traversing time check if previous nodes less then current,remove old and add new
+    anch_max=max(anch_max,root->data);
+    find(root->left,anch_max,diff);
+    find(root->right,anch_max,diff);
+    
+}
+
+
+int maxDiff(Node* root)
+{
+    // negative and positive both type of distance could be possible so initialy store "INT_MIN" 
+    int diff=INT_MIN;
+    //root nodes doesn't have ancestor so we couldn't compare,we had put initial root->data
+    find(root->left,root->data,diff);
+    //same thing done in right side
+    find(root->right,root->data,diff);
+    return diff;
+}
+
+
+3)//Root to leaf paths sum
+
+long long pathsum(Node *root,long long &ans,long long num){
+    
+    if(!root)return 0;
+    
+   
+    
+    num+=root->data;
+    pathsum(root->left,ans,num*10);
+    pathsum(root->right,ans,num*10);
+    if(!root->left &&!root->right){
+        ans+=num;
+        return num;
+    } 
+}
+
+long long treePathsSum(Node *root)
+{
+    //Your code here
+    long long ans=0;
+    long long num=0;
+    pathsum(root,ans,num);
+    return ans;
+}
+
+
+
+4)//Sum Tree
+int sum(Node *root,bool &ans){
+        if(!root) return 0;
+        
+        if(!root->left &&!root->right) return root->data;
+        
+        int left=sum(root->left,ans);
+        int right=sum(root->right,ans);
+        
+        if(root->data!=left+right)
+        ans=0;
+        
+        return root->data+left+right;
+        
+        
+    }
+    
+    
+    bool isSumTree(Node* root)
+    {
+         // Your code here
+         bool ans=1;
+         sum(root,ans);
+         return ans;
+    }
