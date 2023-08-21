@@ -1,0 +1,108 @@
+//1)Preorder traversal (Iterative)
+void preorder(Node *root,vector<int>&ans){
+        stack<Node *>s;
+        s.push(root);
+        while(!s.empty()){
+            ans.push_back(s.top()->data);
+            Node *temp=s.top();
+            s.pop();
+            if(temp->right)
+            s.push(temp->right);
+            if(temp->left)
+            s.push(temp->left);
+        }
+    }
+    
+    vector<int> preOrder(Node* root)
+    {
+        //code here
+        vector<int>ans;
+        preorder(root,ans);
+        return ans;
+    }
+
+
+//2)Postorder Traversal (Iterative)
+
+
+vector<int> postOrder(Node* node) {
+        // code here
+        stack<Node *>s;
+        s.push(node);
+        vector<int>ans;
+        while(!s.empty()){
+            ans.push_back(s.top()->data);
+            Node *temp=s.top();
+            s.pop();
+            if(temp->left)
+            s.push(temp->left);
+            if(temp->right)
+            s.push(temp->right);
+        }
+        reverse(ans.begin(),ans.end());
+        return ans;
+    }
+
+
+//3)Inorder Traversal (Iterative)
+
+    vector<int> inOrder(Node* root)
+    {
+        //code here
+        vector<int>ans;
+        stack<Node *>st;
+        Node *curr=root;
+        //this loop push right node
+        while(curr ||  !st.empty()){
+            
+            //this loop will push left node
+            while(curr!=NULL){
+                st.push(curr);
+                curr=curr->left;
+            }
+            curr=st.top();
+            st.pop();
+            ans.push_back(curr->data);
+            curr=curr->right;
+        }
+        
+        return ans;
+    }
+
+
+
+
+//4)Largest value in each level
+
+void largest(Node *root,vector<int>&ans){
+       
+        
+        queue<Node *>q;
+        q.push(root);
+        
+        while(!q.empty()){
+            int size=q.size();
+            int large=0;
+            while(size--){
+                Node *temp=q.front();
+                int value=temp->data;
+                large=max(large,value);
+                q.pop();
+                if(temp->left)
+                q.push(temp->left);
+                if(temp->right)
+                q.push(temp->right);
+            }
+            ans.push_back(large);
+        }
+        
+    //   return ans;
+    }
+    
+    vector<int> largestValues(Node* root)
+    {
+        //code here
+        vector<int>ans;
+        largest(root,ans);
+        return ans;
+    }
