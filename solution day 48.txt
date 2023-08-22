@@ -1,0 +1,97 @@
+//Function to return a list containing the level order traversal in spiral form.
+vector<int> findSpiral(Node *root)
+{
+    //Your code here
+    vector<int>ans;
+    if(!root)return ans;
+    queue<Node*>q;
+    stack<Node*>s;
+    bool dir=0;
+    q.push(root);
+    while(!q.empty()){
+        //left to right
+        if(dir==0){
+        int size=q.size();
+        while(!q.empty()){
+         Node *temp=q.front();
+         q.pop();
+         if(temp->right)
+         s.push(temp->right);
+         if(temp->left)
+         s.push(temp->left);
+         ans.push_back(temp->data);
+        }
+         dir=1;
+    }
+    else{
+        //right to left
+         int size=q.size();
+        while(!q.empty()){
+         Node *temp=q.front();
+         q.pop();
+         if(temp->left)
+         s.push(temp->left);
+         if(temp->right)
+         s.push(temp->right);
+         ans.push_back(temp->data);
+        }
+         dir=0;
+    }
+    
+    while(!s.empty()){
+        q.push(s.top());
+        s.pop();
+    }
+}
+return ans;
+}
+
+
+ //Function to store the zig zag order traversal of tree in a list.
+    vector <int> zigZagTraversal(Node* root)
+    {
+      vector<int>ans;
+      if(!root) return ans;
+        
+        queue<Node *>q;
+        stack<Node *>s;
+        bool flag=0;
+        q.push(root);
+        Node *temp;
+        while(!q.empty()){
+            //left to right
+            if(flag==0){
+               
+                while(!q.empty()){
+                    temp=q.front();
+                    q.pop();
+                    if(temp->left)
+                    s.push(temp->left);
+                    if(temp->right)
+                    s.push(temp->right);
+                    
+                    ans.push_back(temp->data);
+                }
+                flag=1;
+            }
+            else{
+                while(!q.empty()){
+                    temp=q.front();
+                    q.pop();
+                    if(temp->right)
+                    s.push(temp->right);
+                    if(temp->left)
+                    s.push(temp->left);
+                    
+                    ans.push_back(temp->data);
+                }
+                flag=0;
+            }
+            while(!s.empty()){
+                q.push(s.top());
+                s.pop();
+            }
+            
+        }
+     return ans; 
+    }
