@@ -1,0 +1,105 @@
+//1)Maximum Path Sum between 2 Special Nodes
+
+   int maxsum(Node *root,int &sum){
+       if(!root) return 0;
+       if(!root->left &&!root->right)
+       return root->data;
+       
+       int left=maxsum(root->left,sum);
+       int right=maxsum(root->right,sum);
+       
+       if(root->left &&root->right){
+        sum=max(sum,root->data+left+right);
+        return root->data+max(left,right);
+       }
+       else if(root->left){
+           return root->data+left;
+       }
+       else{
+           return root->data+right;
+       }
+        
+        
+       
+       
+   }
+    int maxPathSum(Node* root)
+    {
+        // code here
+        int sum=INT_MIN;
+        //if root left doesn't exist that means it is also called one special node
+        int val=maxsum(root,sum);
+        if(root->left && root->right)
+        return sum;
+        else
+         return max(sum,val);
+    }
+
+
+//2)Burning Tree
+
+
+int burn(Node *root,int target,int &timer){
+      
+      if(!root) return 0;
+      
+      //burning node
+      if(root->data==target) return -1;
+      
+      int left=burn(root->left,target,timer);
+      int right=burn(root->right,target,timer);
+      
+      //left side burnout
+      if(left<0){
+          timer=max(timer,abs(left)+right);
+          return left-1;
+      }
+      //right side burnout
+      if(right<0){
+          timer=max(timer,abs(right)+left);
+          return right-1;
+      }
+      
+      //left and right both positive
+      return max(left,right)+1;
+      
+  } 
+ 
+  
+  //find address of initial target burning node
+  void find(Node *root,int target,Node * &temp){
+      if(!root) return;
+      
+      if(root->data==target){
+          temp=root;
+          return;
+      }
+      
+      find(root->left,target,temp);
+      find(root->right,target,temp);
+  }
+  
+  //after find initial burning node then compute height of that had burn tree
+  int height(Node *root){
+      if(!root)return 0;
+      
+      return 1+max(height(root->left),height(root->right));
+  }
+  
+    int minTime(Node* root, int target) 
+    {
+        // Your code goes here
+       int timer=0;
+       burn(root,target,timer);
+      //let's findout address of target(where burning start) after find address you can compute height
+      Node *temp;
+      find(root,target,temp);
+      int num=height(temp)-1;
+      
+      
+      
+      return max(timer,num);
+      
+      
+        
+    }
