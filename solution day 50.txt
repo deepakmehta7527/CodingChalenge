@@ -1,0 +1,35 @@
+//Construct Tree from Inorder & Preorder
+
+ int find(int in[],int num,int start,int end){
+           for(int i=start;i<=end;i++){
+               if(in[i]==num) return i;
+           }        
+           
+    }
+    
+    Node * Tree(int in[],int pre[],int start,int end,int index){
+        if(start>end) return NULL;
+        
+        //build Node
+        Node *root=new Node(pre[index]);
+        //find index in inorder left,right
+        int i=find(in,pre[index],start,end);
+        
+        //after index increase untill base condition true
+        root->left=Tree(in,pre,start,i-1,index+1);
+        //now move right direction
+        root->right=Tree(in,pre,i+1,end,index+(i-start)+1);
+        
+        //return root 
+        return root;
+    }
+    
+    Node* buildTree(int in[],int pre[], int n)
+    {
+        // Code here
+        Node *root;
+        //root address store 
+        root=Tree(in,pre,0,n-1,0);
+        //return root
+        return root;
+    }
