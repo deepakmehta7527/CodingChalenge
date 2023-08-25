@@ -1,0 +1,51 @@
+//Minimum element in BST
+
+int minValue(Node* root) {
+    // Code here
+    if(!root) return -1;
+    
+    if(!root->left) return root->data;
+    
+    return minValue(root->left);
+    
+}
+
+
+//Kth largest element in BST
+
+
+  void find(Node *root,int &ans,int &k){
+        if(!root ) return;
+        
+        find(root->right,ans,k);
+        k--;
+        if(k==0){
+            ans=root->data;
+            return;
+        }
+        find(root->left,ans,k);
+        
+    }
+    
+    int kthLargest(Node *root, int K)
+    {
+        //Your code here
+        int ans;
+        find(root,ans,K);
+        return ans;
+        
+    }
+
+
+//Search a node in BST
+
+bool search(Node* root, int x) {
+    // Your code here
+    
+    if(!root) return false;
+    if(root->data==x) return true;
+    if(root->data>x) search(root->left,x);
+    else search(root->right,x);
+    
+    
+}
