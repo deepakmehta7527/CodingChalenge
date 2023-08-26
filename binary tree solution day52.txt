@@ -1,0 +1,31 @@
+//Kth Smallest Element In Tree
+void inorder(TreeNode * A,vector<int>&ans){
+     if(!A) return;
+     
+     
+     inorder(A->left,ans);
+     ans.push_back(A->val);
+     inorder(A->right,ans);
+ }
+ 
+int Solution::kthsmallest(TreeNode* A, int B) {
+    vector<int>ans;
+    inorder(A,ans);
+    return ans[B-1];
+}
+
+
+//Insert a node in a BST
+
+  Node* insert(Node* node, int data) {
+        
+            // Your code goes here
+            if(!node){
+                Node *temp=new Node(data);
+                return temp;
+            }
+            if(node->data==data) return node;
+            if(node->data>data) node->left=insert(node->left,data);
+            else node->right=insert(node->right,data);
+            return node;
+    }
