@@ -1,0 +1,73 @@
+//1)Check for BST
+
+void BST(Node* root,bool &ans,int &prev){
+        if(!root) return;
+        
+        
+        BST(root->left,ans,prev);
+        if(prev>=root->data){
+        ans=0; return;
+        }
+        
+        
+        
+        prev=root->data;
+        BST(root->right,ans,prev);
+        
+        
+            
+    }
+    
+    //Function to check whether a Binary Tree is BST or not.
+    bool isBST(Node* root) 
+    {
+        // Your code here
+        int prev=INT_MIN;
+        bool ans=1;
+        BST(root,ans,prev);
+        return ans;
+    }
+
+
+
+
+
+//2)Sum of k smallest elements in BST
+
+void sumof(Node* root,int &total,int &k){
+    if(!root||k<0) return;
+    
+    sumof(root->left,total,k);
+    k--;
+    if(k>=0){
+        total+=root->data;
+    }
+    sumof(root->right,total,k);
+    
+}
+
+
+// Function to find ceil of a given input in BST. If input is more 
+// than the max key in BST, return -1 
+int sum(Node* root, int k) 
+{ 
+  
+     int total=0;
+     sumof(root,total,k);
+     return total;
+    // Your code here
+    
+    
+} 
+
+
+
+
+
+
+
+
+
+
+
+
