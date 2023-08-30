@@ -1,0 +1,86 @@
+//Preorder to PostOrder
+
+Node * find(int pre[],int min,int max,int &index,int size){
+       if(index>=size|| pre[index]>max)return NULL;
+       
+       Node *root=new Node;
+       root->data=pre[index];
+       index++;
+       
+       root->left=find(pre,min,root->data,index,size);
+       root->right=find(pre,root->data,max,index,size);
+       
+       
+       return root;
+   }
+    //Function that constructs BST from its preorder traversal.
+    Node* post_order(int pre[], int size)
+    {
+        //code here
+        int min=INT_MIN,max=INT_MAX,index=0;
+        return find(pre,min,max,index,size);
+    }
+
+
+
+
+//Function to return a list containing the preorder traversal of the tree.
+vector <int> preorder(Node* root)
+{
+  // Your code here
+  vector<int>ans;
+  while(root){
+      ans.push_back(root->data);
+      if(root->left){
+          Node *curr=root->left;
+          while(curr->right){
+              curr=curr->right;
+          }
+          curr->right=root->right;
+          root->right=root->left;
+          root->left=NULL;
+          root=root->right;
+      }
+      else{
+          root=root->right;
+      }
+      
+  }
+  return ans;
+  
+}
+
+
+
+//Flatten binary tree to linked list
+
+ void flatten(Node *root)
+    {
+        //code here
+        while(root){
+            //root left exist
+            if(root->left){
+                Node *curr=root->left;
+                while(curr->right){
+                    curr=curr->right;
+                }
+                curr->right=root->right;
+                root->right=root->left;
+                root->left=NULL;
+                root=root->right;
+            }
+            //root left doesn't exist
+            else{
+                root=root->right;
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
