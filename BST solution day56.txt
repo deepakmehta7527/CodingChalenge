@@ -1,0 +1,82 @@
+//ceil in bst
+
+int findCeil(Node* root, int input) {
+    if (root == NULL) return -1;
+
+ int ceil=-1;
+ while(root){
+     if(root->data>=input){
+         ceil=root->data;
+         root=root->left;
+     }
+     else{
+         root=root->right;
+     }
+ }
+ return ceil;
+
+
+   
+}
+
+
+//Fixing Two swapped nodes of a BST
+
+
+ void find(Node *root,Node *&prev,Node *&first,Node *&second){
+      if(!root) return;
+      
+      find(root->left,prev,first,second);
+      //apply operation
+      if(prev){
+          //check condition 
+          if(prev->data>root->data){
+              //first decrease condition
+              if(!first && !second){
+                  first=prev;
+                  second=root;
+              }
+              else{
+              second=root;
+              }
+          }
+      }
+      prev=root;
+      find(root->right,prev,first,second);
+  }
+  
+  
+  
+    struct Node *correctBST(struct Node *root) {
+       
+        // add code here.
+        Node *prev=NULL;Node *first=NULL;Node *second=NULL;
+        find(root,prev,first,second);
+        int data=first->data;
+        first->data=second->data;
+        second->data=data;
+        return root;
+    }
+
+
+//Find the Closest Element in BST
+
+ int minDiff(Node *root, int K)
+    {
+        //Your code here
+        if(!root) return INT_MAX;
+        
+        if(K>root->data){
+            return min(K-root->data,minDiff(root->right,K));
+        }
+        else
+        return min(root->data-K,minDiff(root->left,K));
+    }
+
+
+
+
+
+
+
+
