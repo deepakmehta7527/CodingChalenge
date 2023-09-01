@@ -1,0 +1,55 @@
+//Delete a node from BST
+
+Node *minValue(Node *root){
+    Node *curr=root;
+    while(curr && curr->left){
+        curr=curr->left;
+    }
+        return curr;
+}
+// Function to delete a node from BST.
+Node *deleteNode(Node *root, int x) {
+    // your code goes here
+    if(!root) return NULL;
+    
+    
+    if(root->data==x){
+        
+        //0 child
+        if(!root->left && !root->right){
+            delete root;
+            return NULL;
+        }
+        
+        
+       //1 left child
+       else if(root->left and !root->right){
+           Node *temp=root->left;
+           delete root;
+           return temp;
+       }
+       //1 right child
+       else if(!root->left &&root->right){
+           Node *temp=root->right;
+           delete root;
+           return temp;
+       }
+       else{
+           Node *temp=minValue(root->right);
+           root->data=temp->data;
+           root->right=deleteNode(root->right,temp->data);
+          
+       }
+    }
+    // less then root data
+    if(root->data>x){
+        root->left=deleteNode(root->left,x);
+    }
+    
+    //right greater then right data
+    else{
+        root->right=deleteNode(root->right,x);
+    }
+    
+    
+}
