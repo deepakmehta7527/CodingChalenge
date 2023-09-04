@@ -187,3 +187,75 @@ postorder(r);
 return 0;
 }
 
+
+
+
+//heap datastructure
+#include<bits/stdc++.h>
+using namespace std;
+
+void insert(vector<int>&maxheap){
+  int index=maxheap.size()-1;
+  int parent;
+  while(index>0){
+    parent=(index-1)/2;
+    // parent is small
+       if(maxheap[index]>maxheap[parent]){
+       swap(maxheap[index],maxheap[parent]);
+       index=parent;
+       }
+    //parent is big
+       else
+       break;
+
+  }
+}
+
+void heapify(vector<int>&maxheap,int index){
+  int largest=index;
+  int left=2*index+1;
+  int right=2*index+2;
+  int size=maxheap.size();
+  //first check for left side
+if(left<size&&maxheap[left]>maxheap[largest])
+largest=left;
+  //check for right side
+if(right<size&&maxheap[right]>maxheap[largest])
+largest=right;
+//swap if current position small then largest
+if(largest!=index){
+swap(maxheap[largest],maxheap[index]);
+//recursion call
+heapify(maxheap,largest);
+}
+
+}
+
+
+void deleteheap(vector<int>&maxheap,int index){
+      //replace first element by last element
+      maxheap[0]=maxheap[maxheap.size()-1];
+     //Delete the last element
+     maxheap.pop_back();
+     //move on correct position
+     heapify(maxheap,0);
+
+}
+
+int main(){
+vector<int>maxheap;
+int n,j;
+cin>>n;
+for(int i=0;i<n;i++){
+  cin>>j;
+  maxheap.push_back(j);
+  insert(maxheap);
+}
+
+deleteheap(maxheap,0);
+for(int i=0;i<maxheap.size();i++)
+cout<<maxheap[i]<<" ";
+
+
+return 0;
+}
