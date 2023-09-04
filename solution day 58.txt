@@ -1,0 +1,189 @@
+//Avl tree datastructure used to balance tree implementation
+
+#include<bits/stdc++.h>
+using namespace std;
+class Node{
+  public:
+  int height;
+  int data;
+  Node *left;
+  Node *right;
+  Node(int value){
+    data=value;
+    height=1;
+    left=right=NULL;
+  }
+};
+
+
+int getheight(Node *root){
+  if(!root) return 0;
+ return root->height;
+}
+
+void updateheight(Node *root){
+  int leftheight=getheight(root->left);
+  int rightheight=getheight(root->right);
+  //height got update
+  root->height=1+max(leftheight,rightheight);
+
+}
+
+Node* rootleft(Node *root){
+  Node *temp=root->right;
+  root->right=temp->left;
+  temp->left=root;
+  updateheight(root);
+  updateheight(temp);
+  return temp;
+}
+
+
+Node* rootright(Node *root){
+  Node *temp=root->left;
+  root->left=temp->right;
+  temp->right=root;
+  updateheight(root);
+  updateheight(temp);
+  return temp;
+}
+
+
+
+
+Node* balance(Node *root){
+     if(!root) return NULL;
+
+     //update the height
+     updateheight(root);
+
+     //balance factor=left-right height
+    int balance=getheight(root->left)-getheight(root->right);
+
+
+     //balance>1 left unbalance
+    if(balance>1){
+      if(getheight(root->left->left)>=getheight(root->left->right)){
+        root=rootright(root);
+      }
+      else{
+        root->left=rootleft(root->left);
+        root=rootright(root);
+      }
+    }
+
+     //balance<-1 right unbalance
+else if(balance<-1){
+  if(getheight(root->right->right)>=getheight(root->right->left)){
+       root=rootleft(root);
+  }
+    else{
+      root->right=rootright(root->right);
+      root=rootleft(root);
+    }
+}
+return root;
+}
+
+
+Node* createbst(Node *root,int value){
+       if(!root){
+         return new Node(value);
+       }
+       else if(value<root->data){
+        root->left=createbst(root->left,value);
+       }
+       else{
+        root->right=createbst(root->right,value);
+       }
+       return balance(root);
+}
+
+void inorder(Node *root){
+  if(!root)return;
+  inorder(root->left);
+  cout<<root->data<<" ";
+  inorder(root->right);
+}
+
+void preorder(Node *root){
+  if(!root) return;
+  cout<<root->data<<" ";
+  preorder(root->left);
+  preorder(root->right);
+}
+int main(){
+Node *root=NULL;
+int n;
+while(1){
+  cin>>n;
+  if(n!=-1)
+  root=createbst(root,n);
+  else break;
+}
+
+inorder(root);
+cout<<endl;
+preorder(root);
+
+
+
+
+return 0;
+}
+
+
+//sorted array to balanced tree
+#include<bits/stdc++.h>
+using namespace std;
+class Node{
+public:
+int data;
+Node *left;
+Node *right;
+Node(int value){
+  data=value;
+  left=right=NULL;
+}
+};
+
+Node* bstcreate(vector<int>&arr,int s,int e){
+  if(s>e) return NULL;
+  int mid=s+(e-s)/2;
+  Node *root=new Node(arr[mid]);
+  root->left=bstcreate(arr,s,mid-1);
+  root->right=bstcreate(arr,mid+1,e);
+  return root;
+}
+
+void inorder(Node *root){
+  if(!root) return;
+  inorder(root->left);
+  cout<<root->data<<" ";
+  inorder(root->right);
+}
+
+void postorder(Node *root){
+  if(!root) return;
+  cout<<root->data<<" ";
+  postorder(root->left);
+  postorder(root->right);
+}
+
+
+int main(){
+int n;
+cin>>n;
+vector<int>arr(n);
+for(int i=0;i<n;i++){
+  cin>>arr[i];
+}
+
+sort(arr.begin(),arr.end());
+Node *r=bstcreate(arr,0,n-1);
+inorder(r);
+cout<<endl;
+postorder(r);
+return 0;
+}
+
