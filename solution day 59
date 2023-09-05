@@ -1,0 +1,46 @@
+ //Heapify function to maintain heap property.
+    void heapify(int maxheap[], int size, int index)  
+    {
+      // Your Code Here
+        int largest=index;
+  int left=2*index+1;
+  int right=2*index+2;
+  //first check for left side
+if(left<size&&maxheap[left]>maxheap[largest])
+largest=left;
+  //check for right side
+if(right<size&&maxheap[right]>maxheap[largest])
+largest=right;
+//swap if current position small then largest
+if(largest!=index){
+swap(maxheap[largest],maxheap[index]);
+//recursion call
+heapify(maxheap,size,largest);
+}
+
+    }
+
+    public:
+    //Function to build a Heap from array.
+    void buildHeap(int arr[], int n)  
+    { 
+    // Your Code Here
+    }
+
+    
+    public:
+    //Function to sort an array using Heap Sort.
+    void heapSort(int arr[], int n)
+    {
+        //first arrange in the form of maximum heap
+        for(int i=n/2-1;i>=0;i--){
+            heapify(arr,n,i);
+        }
+        
+        //now traverse starting to ending
+        for(int i=n-1;i>=0;i--){
+            swap(arr[i],arr[0]);
+            //after swap everytime arrange order of max heap
+            heapify(arr,i,0);
+        }
+    }
