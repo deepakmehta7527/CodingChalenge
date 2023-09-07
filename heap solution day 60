@@ -1,0 +1,98 @@
+//Height of Heap
+ int heapHeight(int N, int arr[]){
+        // code here
+      if(N==1) return 1;
+      int count=0;
+      int n=N/2;
+      while(n!=1){
+          count++;
+          n=n/2;
+      }
+      return count+1;
+    }
+
+//Profit Maximisation
+int Solution::solve(vector<int> &A, int B) {
+    priority_queue<int>p;
+    for(int i=0;i<A.size();i++){
+        if(A[i])
+        p.push(A[i]);
+    }
+    
+    int ans=0;
+    while(B&&A.size()){
+        ans+=p.top();
+        if(p.top()>1)
+        p.push(p.top()-1);
+        p.pop();
+        B--;
+    }
+    return ans;
+}
+
+//k largest elements
+vector<int> kLargest(int arr[], int n, int k) {
+	    // code here
+	    vector<int>ans;
+	    priority_queue<int,vector<int>,greater<int>>pq;
+	    for(int i=0;i<k;i++){
+	        pq.push(arr[i]);
+	    }
+	    
+	    for(int i=k;i<n;i++){
+	        if(pq.top()<arr[i]){
+	        pq.pop();
+	        pq.push(arr[i]);
+	        }
+	    }
+	            
+	    
+	    while(!pq.empty()){
+	        ans.push_back(pq.top());
+	        pq.pop();
+	    }
+	    
+	    reverse(ans.begin(),ans.end());
+	    return ans;
+	}
+
+//Magician and Chocolates
+int Solution::nchoc(int A, vector<int> &B) {
+    priority_queue<int>p;
+    for(int i=0;i<B.size();i++)
+    p.push(B[i]);
+    
+    long long total=0;
+    
+    while(p.size()&&A){
+        total=(total+p.top())%1000000007;
+        if(p.top()/2)
+        p.push(p.top()/2);
+        p.pop();
+        A--;
+    }
+    return total;
+}
+
+//Minimum Cost of ropes
+ long long minCost(long long arr[], long long n) {
+        // Your code here
+        long long cost=0;
+        priority_queue<long long,vector<long long>,greater<long long>>p;
+        for(long long i=0;i<n;i++)
+        p.push(arr[i]);
+        
+        long long first=0;
+        long long second=0;
+        while(p.size()!=1){
+             first=p.top();
+             p.pop();
+             second=p.top();
+             p.pop();
+             cost+=first+second;
+             p.push(first+second);
+        }
+        
+        return cost;
+    }
+
