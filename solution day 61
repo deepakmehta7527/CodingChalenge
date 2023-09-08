@@ -1,0 +1,32 @@
+//Merge K sorted arrays!
+vector<int> Solution::solve(vector<vector<int> > &A) {
+    vector<int>ans;
+    int row=A.size();
+    int col=A[0].size();
+    
+    //min heap
+    //pair<int,pair<int,int>>
+    priority_queue<pair<int,pair<int,int>>,vector<pair<int,pair<int,int>>>,greater<pair<int,pair<int,int>>>>min_heap;
+    
+    //insert first column into min_heap
+    for(int i=0;i<row;i++)
+    min_heap.push(make_pair(A[i][0],make_pair(i,0)));
+    
+    pair<int,pair<int,int>>p;
+   while(!min_heap.empty()){
+       //get minimum element
+       p=min_heap.top();
+       //insert the value in answer vector
+       ans.push_back(p.first);
+       row=p.second.first;
+       col=p.second.second;
+       min_heap.pop();
+       
+       //insert the next element of that row into minheap,first check whether that row is exhausted or not
+        if(col<A[0].size()-1)
+        min_heap.push(make_pair(A[row][col+1],make_pair(row,col+1)));
+   }    
+    return ans;
+   
+    }
+
