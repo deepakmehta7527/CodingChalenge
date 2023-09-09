@@ -1,0 +1,62 @@
+//Find median in a stream
+ priority_queue<int>max;
+    priority_queue<int,vector<int>,greater<int>>min;
+    double median;
+    //Function to insert heap.
+    void insertHeap(int &x)
+    {
+        //heap is empty
+        if(max.empty()&&min.empty()){
+            median=x;
+            max.push(x);
+            return;
+        }
+        
+        //element is present in heap
+        
+        //max heap.left side
+        if(x<=median)max.push(x);
+        else
+        min.push(x);
+    }
+    
+    //Function to balance heaps.
+    void balanceHeaps()
+    {
+        //left side is greater
+        if(max.size()>min.size()){
+            min.push(max.top());
+            max.pop();
+        }
+        
+        //right side is greater
+        else{
+            max.push(min.top());
+            min.pop();
+        }
+        
+        
+        
+    }
+    
+    //Function to return Median.
+    double getMedian()
+    {
+        if(abs(max.size()-min.size())>1)
+        balanceHeaps();
+        
+        //max==min
+        if(max.size()==min.size()){
+            median=max.top()+min.top();
+            median/=2;
+        }
+        //max>min
+        else if(max.size()>min.size())
+        median=max.top();
+        
+        //min>max
+        else
+        median=min.top();
+        
+        return median;
+    }
