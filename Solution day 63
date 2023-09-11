@@ -1,0 +1,67 @@
+//Smallest range in K lists
+
+ pair<int,int> findSmallestRange(int arr[][N], int n, int k)
+    {
+          //pair<int,pair<int,int>>
+priority_queue<pair<int,pair<int,int>>,vector<pair<int,pair<int,int>>>,greater<pair<int,pair<int,int>>>>min_heap;
+   int mini=INT_MAX;
+   int maxi=INT_MIN;
+   int row,col;
+   
+   //create minheap with k elements
+   for(int i=0;i<k;i++){
+       row=i;
+       col=0;
+       //pair<int,pair<int,int>>;
+       min_heap.push(make_pair(arr[row][col],make_pair(row,col)));
+       mini=min(mini,arr[row][col]);
+       maxi=max(maxi,arr[row][col]);
+       
+   }
+   
+   int start=mini;
+   int end=maxi;
+   pair<int,pair<int,int>>temp;
+   while(!min_heap.empty()){
+       temp=min_heap.top();
+       min_heap.pop();
+       row=temp.second.first;
+       col=temp.second.second;
+       mini=temp.first;
+       
+       if(end-start>maxi-mini){
+           end=maxi;
+           start=mini;
+       }
+       if(col==n-1) break;
+       else{
+           maxi=max(maxi,arr[row][col+1]);
+           min_heap.push(make_pair(arr[row][col+1],make_pair(row,col+1)));
+       }
+       
+   }
+   return {start,end};
+   
+    }
+
+//Largest subarray with 0 sum
+int maxLen(vector<int>&A, int n)
+    {   
+        // Your code here
+        unordered_map<int,int>mp;
+        int len=0;
+        int sum=0;
+        for(int i=0;i<n;i++){
+            sum+=A[i];
+            //exist then 
+            if(sum==0)
+            len=i+1;
+            else if(mp.count(sum))
+            len=max(len,i-mp[sum]);
+            //not exist
+            else
+            mp[sum]=i;
+        }
+        return len;
+    }
+
