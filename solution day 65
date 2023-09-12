@@ -1,0 +1,91 @@
+//solution Largest subarray of 0's and 1's
+ int maxLen(int arr[], int N)
+    {
+        // Your code here
+        int len=0;
+        unordered_map<int,int>m;
+        int sum=0;
+        for(int i=0;i<N;i++){
+            if(arr[i]==1)
+            sum++;
+            else sum--;
+            
+            //1:sum=0
+            if(sum==0) len=i+1;
+            //2 : if sum already exist and count is function already exist return 1
+            if(m.count(sum)){
+                len=max(len,i-m[sum]);
+            }
+            //3: if sum doesn't exist
+            else
+            m[sum]=i;
+        }
+        return len;
+    }
+
+//Count distinct elements in every window
+vector <int> countDistinct (int A[], int n, int k)
+    {
+        //code here.
+        //A[i],count
+        unordered_map<int,int>m;
+        int distinct_count=0;
+        for(int i=0;i<k;i++){
+            m[A[i]]++;
+            if(m[A[i]]==1) distinct_count++;
+        }
+        vector<int>ans;
+        ans.push_back(distinct_count);
+        
+        for(int i=k;i<n;i++){
+            //old element exclude hga
+            m[A[i-k]]--;
+            if(m[A[i-k]]==0)
+            distinct_count--;
+            //new element include hga
+            m[A[i]]++;
+            if(m[A[i]]==1)
+            distinct_count++;
+            
+            ans.push_back(distinct_count);
+            
+            
+            
+        }
+        return ans;
+    }
+
+
+//2 sum
+
+vector<int> Solution::twoSum(const vector<int> &A, int B) {
+    unordered_map<int,int>mp;
+    vector<int>ans;
+    for(int i=0;i<A.size();i++){
+        if(mp.count(B-A[i])){
+            ans.push_back(mp[B-A[i]]);
+            ans.push_back(i+1);
+           return ans;
+        }
+        else{
+            //in map this new value not exist so we are searching element present or not using "count" function,this work if element present return 1 otherwise 0
+            if(mp.count(A[i])==0){
+            mp[A[i]]=i+1;
+            }
+                
+        }
+    }
+    return ans;
+}
+
+
+
+
+
+
+
+
+
+
+
+
