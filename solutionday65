@@ -1,0 +1,124 @@
+//Subarray with B odd numbers
+int Solution::solve(vector<int> &A, int B) {
+unordered_map<int,int>m;
+//total=count of odd ,sum=no of subarray
+int total=0,sum=0;
+m[0]=1;
+for(int i=0;i<A.size();i++){
+    //count number of odd 
+    if(A[i]%2)
+    total++;
+    //increase the unordered_map
+    m[total]++;
+    //B==0
+    if(B==0)
+    sum+=(m[total-B]-1);
+    //include into sum
+    else if(m.count(total-B))
+    sum+=m[total-B];
+}
+return sum;
+}
+
+//Largest subarray of 0's and 1's
+ int maxLen(int arr[], int N)
+    {
+        // Your code here
+        int len=0;
+        unordered_map<int,int>m;
+        int sum=0;
+        for(int i=0;i<N;i++){
+            if(arr[i]==1)
+            sum++;
+            else sum--;
+            
+            //1:sum=0
+            if(sum==0) len=i+1;
+            //2 : if sum already exist and count is function already exist return 1
+            if(m.count(sum)){
+                len=max(len,i-m[sum]);
+            }
+            //3: if sum doesn't exist
+            else
+            m[sum]=i;
+        }
+        return len;
+    }
+
+
+//First Repeating element
+ int ans=-1;
+    unordered_map<int,int>mp;
+    for(int i=A.size()-1;i>=0;i--){
+        if(mp.count(A[i]))
+        ans=A[i];
+        else
+        mp[A[i]]=1;
+    }
+    return ans;
+
+//Subarrays with equal 1s and 0s
+
+  long long int countSubarrWithEqualZeroAndOne(int arr[], int n)
+    {
+        //Your code here
+        int sum=0;
+        long long int final=0;
+        unordered_map<int,int>m;
+        //
+        m[0]=1;
+        
+        for(int i=0;i<n;i++){
+            if(arr[i])//if greater then 0 .sum increase otherwise sum decrease
+            sum++;
+            else
+            sum--;
+            
+            //initial point if you have key but not their value then by default value is "0" 
+            final+=m[sum];
+            //each time key opposite value increase
+            m[sum]++;
+        }
+        return final;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
