@@ -1,0 +1,24 @@
+void DFS(int Node,vector<int>adj[],vector<int>&ans,vector<bool>&visited){
+       if(visited[Node])
+       return;
+       
+       visited[Node]=1;
+       ans.push_back(Node);
+       
+       for(int i=0;i<adj[Node].size();i++)
+       DFS(adj[Node][i],adj,ans,visited);
+       
+       
+   }
+   
+   
+   
+    vector<int> dfsOfGraph(int V, vector<int> adj[]) {
+        // Code here
+        vector<bool>visited(V,0);
+        vector<int>ans;
+        DFS(0,adj,ans,visited);
+        
+        return ans;
+        
+    }
