@@ -1,0 +1,181 @@
+//Rotten Oranges
+
+bool check(int i,int j,int row,int col){
+        return i>-1&&i<row&&j>-1&&j<col;
+    }
+
+
+    int orangesRotting(vector<vector<int>>& grid) {
+        // Code here
+        int n=grid.size(); //row
+        int m=grid[0].size();//col
+    
+        
+        int row[4]={-1,1,0,0};
+        int col[4]={0,0,-1,1};
+        
+        
+        int goodoranges=0;
+        //3 things,row,col,timer
+        queue<pair<pair<int,int>,int>>q;
+        for(int i=0;i<n;i++)
+        for(int j=0;j<m;j++){
+            //count good oranges
+            if(grid[i][j]==1)
+            goodoranges++;
+            else if(grid[i][j]==2){
+                //push into queue row,col,time
+                q.push({{i,j},0});
+            }
+        }
+        
+        int i,j,timer=0;
+        while(!q.empty()){
+            i=q.front().first.first;
+            j=q.front().first.second;
+            timer=q.front().second;
+            q.pop();
+            
+            //ignore long type of condition use this method
+            for(int k=0;k<4;k++){
+              if(check(i-row[k],j+col[k],n,m)&&grid[i-row[k]][j+col[k]]==1){
+                grid[i-row[k]][j+col[k]]=0;
+                goodoranges--;
+                q.push({{i-row[k],j+col[k]},timer+1});
+                
+            } 
+            
+            }
+            
+        }   
+        
+        //for ignore use long condition use in short form above logic
+            
+        //     //up (i-1,j)
+        //     if(check(i-1,j,n,m)&&grid[i-1][j]==1){
+        //         grid[i-1][j]=0;
+        //         goodoranges--;
+        //         q.push({{i-1,j},timer+1});
+                
+        //     }
+        //     //down (i+1,j)
+        //      if(check(i+1,j,n,m)&&grid[i+1][j]==1){
+        //         grid[i+1][j]=0;
+        //         goodoranges--;
+        //         q.push({{i+1,j},timer+1});
+                
+        //     }
+        //     //left(j-1,i)
+        //      if(check(i,j-1,n,m)&&grid[i][j-1]==1){
+        //         grid[i][j-1]=0;
+        //         goodoranges--;
+        //         q.push({{i,j-1},timer+1});
+                
+        //     }
+        //     //right(j+1,i);
+        //  if(check(i,j+1,n,m)&&grid[i][j+1]==1){
+        //         grid[i][j+1]=0;
+        //         goodoranges--;
+        //         q.push({{i,j+1},timer+1});
+        //     }
+            
+        
+        if(goodoranges)
+        return -1;
+        else return timer;   
+    }
+
+
+
+
+//***************************************************************************************//
+//using bfs dsa solve detect cycle in an undirected graph
+
+bool check(int i,int j,int row,int col){
+        return i>-1&&i<row&&j>-1&&j<col;
+    }
+
+
+    int orangesRotting(vector<vector<int>>& grid) {
+        // Code here
+        int n=grid.size(); //row
+        int m=grid[0].size();//col
+    
+        
+        int row[4]={-1,1,0,0};
+        int col[4]={0,0,-1,1};
+        
+        
+        int goodoranges=0;
+        //3 things,row,col,timer
+        queue<pair<pair<int,int>,int>>q;
+        for(int i=0;i<n;i++)
+        for(int j=0;j<m;j++){
+            //count good oranges
+            if(grid[i][j]==1)
+            goodoranges++;
+            else if(grid[i][j]==2){
+                //push into queue row,col,time
+                q.push({{i,j},0});
+            }
+        }
+        
+        int i,j,timer=0;
+        while(!q.empty()){
+            i=q.front().first.first;
+            j=q.front().first.second;
+            timer=q.front().second;
+            q.pop();
+            
+            //ignore long type of condition use this method
+            for(int k=0;k<4;k++){
+              if(check(i-row[k],j+col[k],n,m)&&grid[i-row[k]][j+col[k]]==1){
+                grid[i-row[k]][j+col[k]]=0;
+                goodoranges--;
+                q.push({{i-row[k],j+col[k]},timer+1});
+                
+            } 
+            
+            }
+            
+        }   
+        
+        //for ignore use long condition use in short form above logic
+            
+        //     //up (i-1,j)
+        //     if(check(i-1,j,n,m)&&grid[i-1][j]==1){
+        //         grid[i-1][j]=0;
+        //         goodoranges--;
+        //         q.push({{i-1,j},timer+1});
+                
+        //     }
+        //     //down (i+1,j)
+        //      if(check(i+1,j,n,m)&&grid[i+1][j]==1){
+        //         grid[i+1][j]=0;
+        //         goodoranges--;
+        //         q.push({{i+1,j},timer+1});
+                
+        //     }
+        //     //left(j-1,i)
+        //      if(check(i,j-1,n,m)&&grid[i][j-1]==1){
+        //         grid[i][j-1]=0;
+        //         goodoranges--;
+        //         q.push({{i,j-1},timer+1});
+                
+        //     }
+        //     //right(j+1,i);
+        //  if(check(i,j+1,n,m)&&grid[i][j+1]==1){
+        //         grid[i][j+1]=0;
+        //         goodoranges--;
+        //         q.push({{i,j+1},timer+1});
+        //     }
+            
+        
+        if(goodoranges)
+        return -1;
+        else return timer;
+        
+        
+    }
+
+
