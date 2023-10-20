@@ -1,0 +1,149 @@
+//*******************Steps by Knight***************
+
+//Function to find out minimum steps Knight needs to reach target position.
+    bool check(int i,int j,int n){
+        return i>0&&i<=n&&j>0&&j<=n;
+    }
+    
+    
+	int minStepToReachTarget(vector<int>&KnightPos,vector<int>&TargetPos,int N)
+	{
+	    // Code here
+	    int col[8]={2,2,-2,-2,1,1,-1,-1};
+	    int row[8]={1,-1,1,-1,2,-2,2,-2};
+	    queue<pair<pair<int,int>,int>>q;
+	    q.push({{KnightPos[0],KnightPos[1]},0});
+	    vector<vector<bool>>visit(N+1,vector<bool>(N+1,0));
+	    visit[KnightPos[0]][KnightPos[1]]=1;
+	    
+	    int i,j,step;
+	    while(!q.empty()){
+	        i=q.front().first.first;
+	        j=q.front().first.second;
+	        step=q.front().second;
+	        if(i==TargetPos[0]&&j==TargetPos[1]) return step;
+	        q.pop();
+	        
+	        for(int k=0;k<8;k++){
+	            if(check(i+row[k],j+col[k],N)&&!visit[i+row[k]][j+col[k]]){
+	                visit[i+row[k]][j+col[k]]=1;
+	                q.push({{i+row[k],j+col[k]},step+1});
+	            }
+	        }
+	        
+	        
+	    }
+	    return -1
+	}
+
+
+//****************Detect cycle in a directed graph******
+bool DFS(vector<int>adj[],vector<bool>&visit,vector<bool>&path,int node){
+        path[node]=1;
+        visit[node]=1;
+        for(int i=0;i<adj[node].size();i++){
+            //not visited
+            if(!visit[adj[node][i]]){
+                if(DFS(adj,visit,path,adj[node][i]))
+                return 1;
+            }
+            //already visited
+            else{
+                //if path visited then cycle exist
+                if(path[adj[node][i]]) return 1;
+                
+            }
+        }
+        //if cycle not find then returning time path will be zero
+        path[node]=0;
+        return 0;
+    }
+    
+    
+    
+    bool isCyclic(int V, vector<int> adj[]) {
+        // code here
+      vector<bool>visit(V);
+      vector<bool>path(V);
+      for(int i=0;i<V;i++){
+          if(!visit[i]){
+              if(DFS(adj,visit,path,i)) return 1;
+          }
+      }
+      return 0;
+    }
+
+
+
+//*****************Topological sort "using KAhn's Algo" ********
+
+//Function to return list containing vertices in Topological order. 
+	vector<int> topoSort(int V, vector<int> adj[]) 
+	{
+	    // using kahn's algorithm
+	    vector<int>indegree(V);
+	    for(int i=0;i<V;i++)
+	    for(int j=0;j<adj[i].size();j++){
+	        indegree[adj[i][j]]++;
+	    }
+       queue<int>q;
+       for(int i=0;i<V;i++){
+       if(!indegree[i]) q.push(i); 
+       }
+           
+       vector<int>ans;
+       int node;
+       while(!q.empty()){
+           node=q.front();
+           q.pop();
+           ans.push_back(node);
+           for(int i=0;i<adj[node].size();i++){
+               indegree[adj[node][i]]--;
+               if(indegree[adj[node][i]]==0)
+               q.push(adj[node][i]);
+           }
+       }
+       return ans;
+	}
+
+
+
+//*******************Topological sort without Kahns algo************
+
+//Function to return list containing vertices in Topological order.
+	void DFS(vector<int>adj[],vector<bool>&visit,stack<int>&s,int node){
+	    visit[node]=1;
+	    for(int i=0;i<adj[node].size();i++){
+	        if(!visit[adj[node][i]]){
+	            DFS(adj,visit,s,adj[node][i]);
+	        }
+	    }
+	    s.push(node);
+	    return;
+	}
+	
+	
+	vector<int> topoSort(int V, vector<int> adj[]) 
+	{
+	    // code here
+	    stack<int>s;
+	    vector<bool>visit(V);
+	    
+	    for(int i=0;i<V;i++){
+	        if(!visit[i]){
+	            DFS(adj,visit,s,i);
+	        }
+	    }
+	    
+	    vector<int>ans;
+	    while(!s.empty()){
+	        ans.push_back(s.top());
+	        s.pop();
+	    }
+	    return ans;
+	}
+
+
+
+
+
