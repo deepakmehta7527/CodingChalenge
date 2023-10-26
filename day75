@@ -1,0 +1,183 @@
+//**********************bridges edge in graph"*******
+//Function to find if the given edge is a bridge in graph.
+    bool DFS(int node,int target,vector<int>adj[],vector<bool>&visited){
+        if(node==target) return 1;
+        
+        visited[node]=1;
+        
+        for(int i=0;i<adj[node].size();i++){
+            if(!visited[adj[node][i]]){
+                //adj[node][i] 1,2,3 etc check
+                if(DFS(adj[node][i],target,adj,visited)){
+                    return 1;
+                }
+            }
+        }
+        return 0;
+    }
+    
+    
+    int isBridge(int V, vector<int> adj[], int c, int d) 
+    {
+            //example c=0,d=1
+        for(int i=0;i<adj[c].size();i++){
+            // if 0->1 and 1 replace with c=0 so "0->0"
+            if(adj[c][i]==d){
+                adj[c][i]=c;
+            }
+        }
+        
+    
+          for(int i=0;i<adj[c].size();i++){
+           
+            if(adj[d][i]==c){
+                adj[d][i]=d;
+            }
+        }
+        vector<bool>visited(V);
+        
+    //1: target node find,bridge nhi hai :0
+    //0 :target node not find,bridge hai :1
+        //! when 1 return ans 0 and when 0 return ans 1
+      return !DFS(c,d,adj,visited);
+        
+    }
+
+//****************minimum of spanning tree
+//Function to find sum of weights of edges of the Minimum Spanning Tree.
+	
+	int findparent(int u,vector<int>&parent){
+	    if(u==parent[u]) return u;
+	    
+	    return parent[u]=findparent(parent[u],parent);
+	}
+	
+	
+	bool unionset(int u,int v,vector<int>&rank,vector<int>&parent){
+	    int pu=findparent(u,parent);
+	    int pv=findparent(v,parent);
+	    
+	    if(pu==pv) return 1;//already connected
+	    
+	    if(rank[pu]==rank[pv]){
+	        rank[pu]++;
+	        parent[pv]=pu;
+	    }
+	    else if(rank[pu]<rank[pv]){
+	        parent[pu]=pv;
+	    }
+	    else{
+	        parent[pv]=pu;
+	    }
+	    return 0;
+	    
+	    
+	}
+	
+	
+	
+    int spanningTree(int V, vector<vector<int>> adj[])
+    {
+        // code here
+        vector<int>parent(V);
+        vector<int>rank(V,0);
+        
+        for(int i=0;i<V;i++){
+            parent[i]=i;
+        }
+        
+        //min heap insert every edge
+        
+        priority_queue<pair<pair<int,int>,int>,vector<pair<pair<int,int>,int>>,greater<pair<pair<int,int>,int>>>q;
+        
+        int u,v,w;//vertex,vertex,weight
+        
+        for(int i=0;i<V;i++)
+        for(int j=0;j<adj[i].size();j++){
+            u=i;
+            v=adj[i][j][0];
+            w=adj[i][j][1];
+            q.push({{w,u},v});
+        }
+        
+        int countedges=0,cost=0;
+        while(!q.empty()){
+            if(countedges==V-1) break;
+            w=q.top().first.first;
+            u=q.top().first.second;
+            v=q.top().second;
+            q.pop();
+            
+            if(unionset(u,v,rank,parent)) continue;
+            
+            countedges++;
+            cost+=w;
+        }
+        return cost;
+    }
+
+   //*********************strongly connected components**************
+
+	//Function to find number of strongly connected components in the graph.
+   void DFS(int node,vector<vector<int>>& adj,stack<int>&s,vector<bool>&visited){
+       visited[node]=1;
+       for(int i=0;i<adj[node].size();i++){
+           if(!visited[adj[node][i]])
+           DFS(adj[node][i],adj,s,visited);
+       }
+       s.push(node);
+   }
+   
+   
+   //after reverse adj matrix operation perform
+   void scc(int node,vector<bool>&visited,vector<vector<int>>&adj){
+       visited[node]=1;
+       for(int i=0;i<adj[node].size();i++){
+           if(!visited[adj[node][i]])
+           scc(adj[node][i],visited,adj);
+       }
+   }
+   
+    int kosaraju(int V, vector<vector<int>>& adj)
+    {
+        //code here
+    //modified topological sort    
+        stack<int>s;
+        vector<bool>visited(V);
+        for(int i=0;i<V;i++){
+            if(!visited[i])
+            DFS(i,adj,s,visited);
+        }
+        
+        
+        
+        //transpose the graph,reverse the edges
+        vector<vector<int>>trans(V);
+        for(int i=0;i<V;i++){
+            for(int j=0;j<adj[i].size();j++){
+                // 0->1 ,2->0,3->0 etc
+                trans[adj[i][j]].push_back(i);
+            }
+        }
+        
+        int count=0;
+        for(int i=0;i<V;i++){
+            visited[i]=0;
+        }
+        
+        
+        
+        //pop all stack element and apply operation of transpose matrix
+        while(!s.empty()){
+            //stack top element not visited,count++;
+            if(!visited[s.top()]){
+                count++;
+                //strongly connected components
+                scc(s.top(),visited,trans);
+            }
+            s.pop();
+        }
+        return count;
+    }
+     
+
