@@ -1,0 +1,113 @@
+//***************Floyd Warshall************
+void shortest_distance(vector<vector<int>>&matrix){
+	    // Code here
+	    //constraints given node 100 and each path exist 1000 so 100*1000=100000 and so u can use 10pow6(1e6) ja 7
+	    int n=matrix.size();
+	    for(int i=0;i<n;i++){
+	        for(int j=0;j<n;j++){
+	            if(matrix[i][j]==-1)
+	            matrix[i][j]=1e6;
+	        }
+	    }
+	    
+	    for(int k=0;k<n;k++)
+	    for(int i=0;i<n;i++)
+	    for(int j=0;j<n;j++){
+	        matrix[i][j]=min(matrix[i][j],matrix[i][k]+matrix[k][j]);
+	    }
+	    
+	    
+	    //if path not exist
+	    for(int i=0;i<n;i++){
+	        for(int j=0;j<n;j++){
+	            if(matrix[i][j]==1e6)
+	            matrix[i][j]=-1;
+	        }
+	    }
+	}
+
+
+//********************Euler Circuit in an Undirected Graph**********
+void DFS(int node,vector<int>adj[],vector<bool>&visited){
+         visited[node]=1;
+         for(int i=0;i<adj[node].size();i++){
+             if(!visited[adj[node][i]]){
+                 DFS(adj[node][i],adj,visited);
+             }
+         }
+     }
+
+
+	bool isEularCircuitExist(int V, vector<int>adj[]){
+	    // Code here
+	    vector<int>degree(V);
+	    for(int i=0;i<V;i++)
+	    degree[i]=adj[i].size();  //size will tell degree of that node
+	    
+	    
+	    
+	    //find which node degree exist
+	    int node=-1; 
+	    for(int i=0;i<V;i++){
+	        if(degree[i]){
+	            node=i;   //node found whose degree exist
+	            break;
+	        }
+	    }
+	    
+	    if(node==-1) return 1; //node still equal to -1 that means all node degree 0 so it is euler circuit
+	    
+	    
+	    //check if degree is even or odd
+	    for(int i=0;i<V;i++){
+	        if(degree[i]%2)  //if odd return 0
+	        return 0;
+	    }
+	    
+	    //if even traverse whole circuit
+	    vector<bool>visited(V);
+	    DFS(node,adj,visited);
+	    
+	    
+	    //node not visit but there degree exist
+	    for(int i=0;i<V;i++){
+	        if(!visited[i]&&degree[i]) return 0;
+	    }
+	    
+	    //if node visite and there degree exist
+	    return 1;
+	    
+	}
+
+//*******************Distance from the Source (Bellman-Ford Algorithm)*******
+vector<int> bellman_ford(int V, vector<vector<int>>& edges, int S) {
+        // Code here
+        vector<int>dist(V,1e8);
+        dist[S]=0;
+        for(int i=0;i<V-1;i++){
+            for(auto it:edges){
+                int u=it[0];
+                int v=it[1];
+                int wt=it[2];
+                //checking nodes possible or not to visit and vertices1 + weight <verctices2
+                if(dist[u]!=1e8 && dist[u]+wt<dist[v]){
+                    dist[v]=dist[u]+wt;
+                }
+            }
+        }
+        
+        //check negative cycle edges exist
+         for(auto it:edges){
+                int u=it[0];
+                int v=it[1];
+                int wt=it[2];
+                //still both cases true that means negatie edges exist
+                if(dist[u]!=1e8 && dist[u]+wt<dist[v]){
+                    return {-1};
+                }
+            }
+        return dist;
+    }
+
+
+
