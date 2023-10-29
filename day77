@@ -1,0 +1,44 @@
+int DFS(int node,vector<int>adj[],vector<int>&disc,vector<int>&low,vector<vector<int>>&bridge,int &timer,int &parent){
+        //if disc node already have then just return
+        if(disc[node]!=-1) return disc[node];
+        
+        //if not timer will increase
+        timer++;
+        disc[node]=low[node]=timer;
+        
+        for(int i=0;i<adj[node].size();i++){
+            int neighbour=adj[node][i];
+            if(neighbour==parent)continue;
+            
+        low[node]=min(low[node],DFS(neighbour,adj,disc,low,bridge,timer,node));    
+            
+    
+            //Bridge condition
+        if(low[neighbour]>disc[node]){
+            if(node>neighbour) bridge.push_back({neighbour,node});
+            else bridge.push_back({node,neighbour});
+        }
+    
+    
+        }
+        
+    
+        
+        
+        return low[node];
+    }
+    
+    
+vector<vector<int>>criticalConnections(int V, vector<int> adj[]){
+	    // Code here
+	    vector<vector<int>>bridge;
+	    vector<int>disc(V,-1);
+	    vector<int>low(V,-1);
+	    int parent=-1;
+	    int timer=-1;
+	    
+	    
+	    DFS(0,adj,disc,low,bridge,timer,parent);
+	    sort(bridge.begin(),bridge.end());
+	    return bridge;
+	}
