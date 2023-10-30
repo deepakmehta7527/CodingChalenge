@@ -1,0 +1,84 @@
+//***********House robber**************
+/*  //top down approach first method
+    int find(int index,vector<int>&nums,int n,vector<int>&dp){
+        if(index>=n)return 0;
+        
+        if(dp[index]!=-1) return dp[index];
+        return dp[index]=max(nums[index]+find(index+2,nums,n,dp),find(index+1,nums,n,dp));
+        
+    }
+*/
+    int rob(vector<int>& nums) {
+        int n=nums.size();
+  /*
+  //bottom up approach(tabulation method) 2nd method
+        vector<int>dp(n+2,-1);
+        dp[n]=dp[n+1]=0;
+        for(int i=n-1;i>=0;i--){
+            dp[i]=max(nums[i]+dp[i+2],dp[i+1]);
+        }
+        return dp[0];
+    }
+    */
+
+ //*********bottom up approach help to "optimize space" third method
+    vector<int>dp(n+2,-1);
+    int ans,first=0,second=0;
+    for(int i=n-1;i>=0;i--){
+       ans=max(nums[i]+second,first);
+       second=first;
+       first=ans;      
+    }
+    return ans;
+    }
+
+
+
+//*****************Nth Fibonacci Number**************
+int nthFibonacci(int n){
+        // code here
+        long long int first=0;
+        long long int second=1;
+        long long int third;
+        for(int i=2;i<=n;i++){
+            third=(first+second)%1000000007;
+            first=second;
+            second=third;
+        }
+        return third;
+    }
+
+//******************Climbing stairs**************8
+ //top down approach
+   /*int find(int stair,int n,vector<int>&dp){
+       if(stair==n) return 1;
+       if(stair>n) return 0;
+
+       if(dp[stair]!=-1) return dp[stair];
+
+       dp[stair]=find(stair+1,n,dp)+find(stair+2,n,dp);
+       return dp[stair];
+   }*/
+
+    int climbStairs(int n) {
+        
+        vector<int>dp(n+2);
+       /* //bottom up approach 
+        dp[n]=1;
+        dp[n+1]=0;
+        for(int i=n-1;i>=0;i--){
+            dp[i]=dp[i+1]+dp[i+2];
+        }
+       return dp[0];*/
+     
+     //let's optimize space
+     int first=0;
+     int second=1;
+    int third;
+    for(int i=n-1;i>=0;i--){
+        third=first+second;
+        first=second;
+        second=third;
+    }
+    return third;
+    }
