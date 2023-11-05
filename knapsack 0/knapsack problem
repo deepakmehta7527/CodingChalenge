@@ -1,0 +1,32 @@
+
+    /*int find(int index,int W,int wt[],int val[],vector<vector<int>>&dp){
+        if(W==0) return 0;
+        
+        if(index==0) return 0;
+        
+        if(dp[index][W]!=-1) return dp[index][W];
+        
+        //if item weight greater then compare to original weight then skip and search on new weight value
+        if(wt[index-1]>W)
+        return dp[index][W]=find(index-1,W,wt,val,dp);
+        
+        else return dp[index][W]=max(val[index-1]+find(index-1,W-wt[index-1],wt,val,dp),find(index-1,W,wt,val,dp));
+    }*/
+    
+    
+    int knapSack(int W, int wt[], int val[], int n) 
+    { 
+        
+       vector<int>dp(W+1,0);
+       
+       for(int i=1;i<=n;i++)
+       for(int j=W;j>=0;j--){
+         if(wt[i-1]>j)
+        dp[j]=dp[j];
+        else
+        dp[j]=max(val[i-1]+dp[j-wt[i-1]],dp[j]);
+    }
+        
+       return dp[W];
+       }
+       
