@@ -1,0 +1,87 @@
+/*Lonest common subsequnce */
+//space optimized
+ int lcs(int n, int m, string s1, string s2)
+    {
+        /*space optimized */
+        vector<int>dp(m+1,0);
+         int prev,current;
+         
+        for(int i=1;i<=n;i++){
+        prev=0,current=0;
+        
+        for(int j=1;j<=m;j++){
+        
+        prev=current;
+        current=dp[j];
+        
+            if(s1[i-1]==s2[j-1]) dp[j]=1+prev;
+            else dp[j]=max(dp[j],dp[j-1]);
+        }
+        
+        }
+        return dp[m];
+    }
+
+//method 2 is top down approach:-
+ int find(int n,int m,string &s1,string &s2,vector<vector<int>>&dp){
+        if(n==0 || m==0) return 0;
+        
+        if(dp[n][m]!=-1) return dp[n][m];
+        
+        if(s1[n-1]==s2[m-1]) return dp[n][m]=1+find(n-1,m-1,s1,s2,dp);
+        
+        else 
+        return dp[n][m]=max(find(n-1,m,s1,s2,dp),find(n,m-1,s1,s2,dp));
+    }
+    
+    int lcs(int n, int m, string s1, string s2)
+    {
+        // your code here
+        vector<vector<int>>dp(n+1,vector<int>(m+1,-1));
+        
+        return find(n,m,s1,s2,dp);
+        
+    }
+//method 3 bottom up approach
+ int lcs(int n, int m, string s1, string s2)
+    {
+        /*bottom up approach*/
+        vector<vector<int>>dp(n+1,vector<int>(m+1,0));
+        for(int i=1;i<=n;i++)
+        for(int j=1;j<=m;j++){
+            if(s1[i-1]==s2[j-1]) dp[i][j]=1+dp[i-1][j-1];
+            else dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+        }
+        return dp[n][m];
+    }
+
+/* ******************************************************************************************************
+Longest Repeating Subsequence
+*/
+//top down approach
+int find(int n,int m,string &str,vector<vector<int>>&dp){
+	       if(n==0 ||m==0) return 0;
+	      
+	      if(dp[n][m]!=-1) return dp[n][m];
+	       
+	       if(n==m||str[n-1]!=str[m-1])return dp[n][m]=max(find(n-1,m,str,dp),find(n,m-1,str,dp));
+	      
+	 
+	       else
+	        return dp[n][m]=1+find(n-1,m-1,str,dp);
+	   
+	   }
+	
+	
+		int LongestRepeatingSubsequence(string str){
+		    // Code here
+		    int n=str.size();
+		    vector<vector<int>>dp(n+1,vector<int>(n+1,-1));
+		    return find(n,n,str,dp);
+		}
+
+
+
+
+
+
