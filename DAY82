@@ -1,0 +1,85 @@
+//Longest Common Substring
+
+/* *******first approach:-bottom up approach ******* */
+
+
+    int longestCommonSubstr (string S1, string S2, int n, int m)
+    {
+        // bottom up approach
+        int ans=0;
+        vector<vector<int>>dp(n+1,vector<int>(m+1,0));
+        for(int i=1;i<=n;i++)
+        for(int j=1;j<=m;j++){
+            if(S1[i-1]==S2[j-1]){
+                dp[i][j]=1+dp[i-1][j-1];
+                ans=max(dp[i][j],ans);
+            }
+        }
+        
+        
+        return ans;
+    }
+
+/*  **********2nd approach top down apporach************      */
+
+ int find(int n,int m,string &s1,string &s2,int &ans,vector<vector<int>>&dp){
+        if(n==0 || m==0) return 0;
+        
+        if(dp[n][m]!=-1) return dp[n][m];
+        
+        //if you don't understand just dry run ur code
+        int len=0; 
+        if(s1[n-1]==s2[m-1]){
+            //when this line complete find(n-1,m-1,s1,s2,ans) ans n&m==0 returning time 'lenth' will return
+            len=1+find(n-1,m-1,s1,s2,ans,dp); //returning time replace 'find(n-1,m-1,s1,s2,ans)' this line into 'len'
+            ans=max(len,ans);
+        }
+        find(n-1,m,s1,s2,ans,dp);
+        find(n,m-1,s1,s2,ans,dp);
+        
+        return dp[n][m]=len;
+    }
+    
+    
+    int longestCommonSubstr (string S1, string S2, int n, int m)
+    {
+        // your code here
+        int ans=0;
+        vector<vector<int>>dp(n+1,vector<int>(m+1,-1));
+        find(n,m,S1,S2,ans,dp);
+        return ans;
+    }
+
+
+
+
+
+/*   *********third approach is worst case*********  */
+
+ int find(int n,int m,string &s1,string &s2,int &ans){
+        if(n==0 || m==0) return 0;
+        //if you don't understand just dry run ur code
+        int len=0; 
+        if(s1[n-1]==s2[m-1]){
+            //when this line complete find(n-1,m-1,s1,s2,ans) ans n&m==0 returning time 'lenth' will return
+            len=1+find(n-1,m-1,s1,s2,ans); //returning time replace 'find(n-1,m-1,s1,s2,ans)' this line into 'len'
+            ans=max(len,ans);
+        }
+        find(n-1,m,s1,s2,ans);
+        find(n,m-1,s1,s2,ans);
+        
+        return len;
+    }
+    
+    
+    int longestCommonSubstr (string S1, string S2, int n, int m)
+    {
+        // your code here
+        int ans=0;
+        find(n,m,S1,S2,ans);
+        return ans;
+    }
+
+
+
+
