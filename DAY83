@@ -1,0 +1,41 @@
+/*    **************** Longest Increasing Subsequence ****************            */
+
+ //Function to find length of longest increasing subsequence.
+    int longestSubsequence(int n, int a[])
+    {
+       // your code here
+       int size=0,mid,index,end,start;
+       vector<int>LIS(n);
+       
+       //0 based indexing
+       LIS[0]=a[0];
+       
+       //time complexity O(nlogn)
+       for(int i=1;i<n;i++){
+           start=0,end=size;
+           //after next index start
+           index=size+1;
+           
+           
+           while(start<=end){
+               mid=start+(end-start)/2;
+               //here 0<8 so start will be 1 and loop condition false like start>end and loop break
+               if(LIS[mid]<a[i]) start=mid+1;
+               else if(LIS[mid]==a[i]){
+                   index=mid;
+                   break;
+               }
+               else{
+                   index=mid;
+                   end=mid-1;
+               }
+           }
+        //   example {0,8} after break loop ,index=0 and index+1=1(places) where element insert 
+           LIS[index]=a[i];
+           //compare index and size value
+           size=max(index,size);
+       }
+       
+       //it is "0" base index so next size+1 return
+       return size+1;
+    }
