@@ -1,0 +1,50 @@
+/*  Minimum path sum   */
+    int minPathSum(vector<vector<int>>& grid) {
+        int n=grid.size(),m=grid[0].size();
+        // last row
+        for(int j=m-2;j>=0;j--)
+        grid[n-1][j]+=grid[n-1][j+1];
+
+       
+       //last col
+       for(int i=n-2;i>=0;i--)
+       grid[i][m-1]+=grid[i+1][m-1];
+
+       for(int i=n-2;i>=0;i--)
+       for(int j=m-2;j>=0;j--)
+       grid[i][j]+=min(grid[i+1][j],grid[i][j+1]);
+      
+
+      return grid[0][0];
+    }
+
+/*  Best time to buy and sell stock  */
+
+int maxProfit(vector<int>& prices) {
+        int profit=0,n=prices.size();
+        int stock=prices[0];
+
+        for(int i=1;i<n;i++){
+            profit=max(profit,prices[i]-stock);
+            stock=min(stock,prices[i]);
+        }
+        return profit;
+    }
+
+
+
+/*   best time to buy and sell stock    */
+int maxProfit(vector<int>& prices) {
+        int profit=0,n=prices.size();
+
+        for(int i=1;i<n;i++){
+            if(prices[i]>prices[i-1])
+            profit+=prices[i]-prices[i-1];
+        }
+        return profit;
+    }
+
+
+
+
+
