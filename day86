@@ -1,0 +1,56 @@
+/*  *Subset sum problem*   */
+
+  bool isSubsetSum(vector<int>arr, int sum){
+        // code here 
+        int n=arr.size();
+        vector<vector<int>>dp(n+1,vector<int>(sum+1,0));
+        
+        
+        //last row don't need to initialized with 0 .so u can skip to initialize
+        
+        //first colum initialize with 1 
+        for(int i=0;i<=n;i++)
+        dp[i][0]=1;
+        
+        
+        for(int i=n-1;i>=0;i--)
+        for(int j=1;j<=sum;j++){
+            
+             if(j<arr[i]) dp[i][j]=dp[i+1][j];
+             else dp[i][j]=dp[i+1][j-arr[i]]||dp[i+1][j];
+        }
+        //last value fill i==0 and j==sum so return that index value anwere (0,sum)
+        return dp[0][sum];    
+    }
+
+/*  *Best time to buy and sell stock*   */
+
+int find(int day,int trans,int buy,int n,vector<int>&prices,vector<vector<vector<int>>>&dp){
+      if(trans==0||day==n) return 0;
+
+      if(dp[day][trans][buy]!=-1) return dp[day][trans][buy];
+    if(buy){
+        //buy or not buy
+        return dp[day][trans][buy]=max(-prices[day]+find(day+1,trans,0,n,prices,dp),find(day+1,trans,1,n,prices,dp));
+    }
+
+    else{
+        //sell or not sell
+        return dp[day][trans][buy]=max(prices[day]+find(day+1,trans-1,1,n,prices,dp),find(day+1,trans,0,n,prices,dp));
+    }
+
+
+  }
+    int maxProfit(vector<int>& prices) {
+        
+        int n=prices.size();
+        vector<vector<vector<int>>>dp(n+1,vector<vector<int>>(3,vector<int>(2,-1)));
+        return find(0,2,1,n,prices,dp);
+    }
+
+
+
+
+
+
+
