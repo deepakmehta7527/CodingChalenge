@@ -1,0 +1,36 @@
+/*    *************Best time to buy and sell stock 3****************             */
+
+int maxProfit(vector<int>& prices) {
+        //bottom to up approach
+        int n=prices.size();
+        vector<vector<int>>dp(3,vector<int>(n+1,0));
+
+        int total;
+        for(int i=1;i<=2;i++){
+            total=-prices[0];
+            for(int j=2;j<=n;j++){
+                dp[i][j]=max(dp[i][j-1],prices[j-1]+total);
+                total=max(total,-prices[j-1]+dp[i-1][j]);
+            }
+        }
+        return dp[2][n];
+    }
+
+/*   *************** best time to buy and sell stock 4 ******************                 */
+int maxProfit(int k, vector<int>& prices) {
+        int n=prices.size();
+        vector<vector<int>>dp(k+1,vector<int>(n+1,0));
+
+        int total;
+        for(int i=1;i<=k;i++){
+            total=-prices[0];
+            for(int j=2;j<=n;j++){
+                dp[i][j]=max(dp[i][j-1],prices[j-1]+total);
+                total=max(total,-prices[j-1]+dp[i-1][j]);
+            }
+        }
+        return dp[k][n];
+    }
+
+
+
