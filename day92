@@ -1,0 +1,112 @@
+struct Node{
+    Node *links[26];
+    int cntendwith=0;
+    int cntprefix=0;
+
+
+    bool containsKey(char ch){
+        return(links[ch-'a']!=NULL);
+    }
+
+    Node *get(char ch){
+        return links[ch-'a'];
+    }
+    
+    void put(char ch,Node *node){
+        links[ch-'a']=node;
+    }
+
+    void increaseEnd(){
+        cntendwith++;
+    }
+
+    void increaseprefix(){
+        cntprefix++;
+    }
+   void deleteEnd(){
+       cntendwith--;
+   }
+  void reduceprefix(){
+      cntprefix--;
+  }
+  int getEnd(){
+      return cntendwith;
+  }
+  
+  int getprefix(){
+      return cntprefix;
+  }
+};
+
+
+class Trie{
+
+    private:
+    Node *root;
+     
+
+    public:
+/*initialize your data structure here      */
+    Trie(){
+        // Write your code here.
+        root=new Node();
+    }
+/** Inserts a word into the trie. */
+    void insert(string &word){
+        // Write your code here.
+       Node *node=root;
+
+       for(int i=0;i<word.length();i++){
+           if(!node->containsKey(word[i])){
+               node->put(word[i],new Node());
+           }
+           node=node->get(word[i]);
+           node->increaseprefix();
+       }
+     node->increaseEnd();
+    }
+
+    int countWordsEqualTo(string &word){
+        // Write your code here.
+        Node *node=root;
+        for(int i=0;i<word.length();i++){
+            if (node->containsKey(word[i]))
+            {
+                node = node->get(word[i]);
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        return node->getEnd();
+        }
+    
+
+    int countWordsStartingWith(string &word){
+        // Write your code here.
+        Node * node = root;
+    for (int i = 0; i < word.length(); i++) {
+      if (node -> containsKey(word[i])) {
+        node = node -> get(word[i]);
+      } else {
+        return 0;
+      }
+    }
+    return node -> getprefix();
+    }
+
+    void erase(string &word){
+        // Write your code here
+           Node * node = root;
+    for (int i = 0; i < word.length(); i++) {
+      if (node -> containsKey(word[i])) {
+        node = node -> get(word[i]);
+        node -> reduceprefix();
+      } else {
+        return;
+      }
+    }
+    node -> deleteEnd();
+    }
+};
