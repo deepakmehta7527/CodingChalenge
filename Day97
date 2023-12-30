@@ -1,0 +1,72 @@
+//implementation  of segment tree//
+#include<bits/stdc++.h>
+using namespace std;
+
+class SegmentTree{
+  vector<int>tree;   //segment tree
+  vector<int>arr;    //array
+  int n;             // size of array
+
+  public:
+  SegmentTree(vector<int>input){
+     n=input.size();
+     arr=input;
+     tree.resize(4*n);
+     build(0,0,n-1);  /* node,start and end index */
+                       //Segment tree
+  }
+
+  void build(int node,int start,int end){
+    //Base condition
+    if(start==end){
+       tree[node]=arr[start];
+       return;
+    }
+
+    int mid=start+(end-start)/2;
+    //left child
+    build(2*node+1,start,mid);
+    //right child
+    build(2*node+2,mid+1,end);
+
+    tree[node]=tree[2*node+1]+tree[2*node+2];
+  }
+
+ int range(int node,int start,int end,int left,int right){
+  //fully out of range
+   if(end<left || start>right) return 0;
+   //fully in the range
+   if(start>=left&&end<=right) return tree[node];
+
+
+   int mid=start+(end-start)/2;
+  //Overlapping or partially in the range left and right child
+
+return range(2*node+1,start,mid,left,right)+range(2*node+2,mid+1,end,left,right);
+
+
+ }
+
+  int query(int left,int right){
+    //root address,array start index and end index,
+    return range(0,0,n-1,left,right);
+  }
+};
+
+
+int main(){
+
+  vector<int>arr;
+  arr.push_back(3);
+  arr.push_back(6);
+  arr.push_back(4);
+  arr.push_back(25);
+  arr.push_back(5);
+  arr.push_back(13);
+  arr.push_back(18);
+
+  SegmentTree *Tree=new SegmentTree(arr);
+  cout<<Tree->query(1,5)<<endl;
+
+return 0;
+}
